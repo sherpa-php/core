@@ -1,0 +1,19 @@
+{
+    "name": "sherpa/core",
+    "description": "Sherpa Framework core",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sherpa\\Core\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "belicfr",
+            "email": "anonymous@ano.nymous"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
