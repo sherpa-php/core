@@ -17,12 +17,12 @@ class Debug
     {
         echo "
         <div class='debug-container'>
-            $value
+            " . var_dump($value) . "
         </div>
         
         <style>
             .debug-container {
-                border: solid 4px orange;
+                border: solid 2px orange;
                 border-radius: 15px;
                 
                 background-color: #393939;
