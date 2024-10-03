@@ -1,5 +1,7 @@
 <?php
 
+namespace Sherpa\Core\Utilities;
+
 class Debug
 {
     public static function dump(mixed ...$args): void
