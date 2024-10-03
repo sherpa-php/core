@@ -1,0 +1,2 @@
+# core
+Sherpa Core
