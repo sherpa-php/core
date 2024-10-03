@@ -17,7 +17,11 @@ class Debug
     {
         echo "
         <div class='debug-container'>
-            " . var_dump($value) . "
+        ";
+
+        var_dump($value);
+
+        echo "
         </div>
         
         <style>
