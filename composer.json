@@ -3,7 +3,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Sherpa\\Core\\": "src/"
+            "SherpaCore\\": "src/"
         }
     },
     "authors": [

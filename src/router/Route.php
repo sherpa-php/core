@@ -1,8 +1,8 @@
 <?php
 
-namespace Sherpa\Core\router;
+namespace SherpaCore\router;
 
-use Sherpa\Core\router\http\HttpMethod;
+use SherpaCore\router\http\HttpMethod;
 
 class Route
 {

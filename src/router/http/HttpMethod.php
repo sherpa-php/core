@@ -1,6 +1,6 @@
 <?php
 
-namespace Sherpa\Core\router\http;
+namespace SherpaCore\router\http;
 
 enum HttpMethod
 {

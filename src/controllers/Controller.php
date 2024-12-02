@@ -1,6 +1,6 @@
 <?php
 
-namespace Sherpa\Core\controllers;
+namespace SherpaCore\controllers;
 
 abstract class Controller
 {
