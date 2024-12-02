@@ -2,7 +2,10 @@
 
 namespace Sherpa\Core\controllers;
 
-class Controller
+abstract class Controller
 {
+    public function __default(): void
+    {
 
+    }
 }
