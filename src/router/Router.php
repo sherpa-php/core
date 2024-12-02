@@ -1,12 +1,12 @@
 <?php
 
-namespace SherpaCore\router;
+namespace Sherpa\Core\router;
 
-use SherpaCore\router\http\HttpMethod;
+use Sherpa\Core\router\http\HttpMethod;
 
 class Router
 {
-    public private(set) static array $routes = [];
+    private static array $routes = [];
 
     public static function get(string $path, array|string $controller): Route
     {
@@ -26,5 +26,10 @@ class Router
             null);
 
         return self::$routes[] = $route;
+    }
+
+    public static function routes(): array
+    {
+        return self::$routes;
     }
 }
