@@ -1,6 +1,6 @@
 <?php
 
-namespace SherpaCore\core;
+namespace Sherpa\Core\core;
 
 class Sherpa
 {
