@@ -9,14 +9,14 @@ class Route
     public private(set) HttpMethod $httpMethod;
     public private(set) string $path;
     public private(set) string $controllerClass;
-    public private(set) ?string $controllerMethod;
+    public private(set) string $controllerMethod;
     public private(set) ?string $name;
 
     public function __construct(
         HttpMethod $httpMethod,
         string $path,
         string $controllerClass,
-        ?string $controllerMethod = null,
+        string $controllerMethod,
         ?string $name = null)
     {
         $this->httpMethod = $httpMethod;

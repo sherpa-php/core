@@ -16,7 +16,7 @@ class Router
 
         $controllerMethod = is_array($controller) && isset($controller[1])
             ? $controller[1]
-            : null;
+            : "__default";
 
         $route = new Route(
             HttpMethod::GET,
