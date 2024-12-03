@@ -13,7 +13,9 @@ class SherpaRendering
         $this->templatePath = $templatePath;
     }
 
-    public function render(string $viewPath, array $props = []): self
+    public function render(string $viewPath,
+                           array $props = [],
+                           string $title = ""): self
     {
         extract($props);
 
@@ -23,7 +25,23 @@ class SherpaRendering
         include $viewPath;
         $view = ob_get_clean();
 
-        echo str_replace("@Sherpa(.Rendering)", $view, $template);
+        $rendering = preg_replace_callback(
+            "/@Sherpa\(Env\.([A-Z_]+)\)/",
+            function ($matches)
+            {
+                return $_ENV[$matches[1]] ?? $matches[0];
+            },
+            $template);
+
+        $rendering = str_replace(
+            "@Sherpa(Local.Title)",
+            $title,
+            $rendering);
+
+        echo str_replace(
+            "@Sherpa(.Rendering)",
+            $view,
+            $rendering);
 
         return $this;
     }
