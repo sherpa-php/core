@@ -73,7 +73,7 @@ class Router
 
         if ($route === null)
         {
-            throw new UrlNotLinkedToAnyRouteException($url);
+            throw new UrlNotLinkedToAnyRouteException($url, $httpMethod);
         }
 
         $controller = $route->controller();
