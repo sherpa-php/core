@@ -13,7 +13,7 @@ class UrlNotLinkedToAnyRouteException extends SherpaException
                                 ?Throwable $previous = null)
     {
         $message = "Following URL is no longer linked to any route: "
-                 . "$url\[$httpMethod->name]";
+                 . "$url::$httpMethod->name";
 
         parent::__construct($message, 1002, $previous);
     }
