@@ -4,6 +4,7 @@ namespace Sherpa\Core\router;
 
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\exceptions\router\InvalidControllerMethodException;
+use Sherpa\Core\exceptions\router\UrlNotLinkedToAnyRouteException;
 use Sherpa\Core\router\http\HttpMethod;
 
 class Router
@@ -58,13 +59,20 @@ class Router
 
     /**
      * @throws InvalidControllerMethodException
+     * @throws UrlNotLinkedToAnyRouteException
      */
-    public static function resolve(Route $route): void
+    public static function resolve(Request $request): void
     {
+        $url = $request->url;
+        $route = self::getRouteByPath($url);
+
+        if ($route === null)
+        {
+            throw new UrlNotLinkedToAnyRouteException($url);
+        }
+
         $controller = $route->controller();
         $method = $route->method();
-
-        $request = new Request();
 
         if (!method_exists($controller, $method))
         {
