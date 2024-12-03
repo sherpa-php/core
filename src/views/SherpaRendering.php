@@ -23,7 +23,7 @@ class SherpaRendering
         include $viewPath;
         $view = ob_get_clean();
 
-        str_replace("@Sherpa(.Rendering)", $view, $template);
+        echo str_replace("@Sherpa(.Rendering)", $view, $template);
 
         return $this;
     }
