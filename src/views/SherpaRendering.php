@@ -18,7 +18,7 @@ class SherpaRendering
         $template = $this->loadTemplate();
         $view = file_get_contents($viewPath);
 
-        str_replace("@Sherpa(.Rendering)", $view, $template);
+        echo str_replace("@Sherpa(.Rendering)", $view, $template);
 
         return $this;
     }
