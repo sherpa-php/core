@@ -5,6 +5,12 @@ namespace Sherpa\Core\router;
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\router\http\HttpMethod;
 
+/**
+ * Route entity class.
+ * <p>
+ *     Detains all route's information.
+ * </p>
+ */
 class Route
 {
     private HttpMethod $httpMethod;
@@ -27,6 +33,12 @@ class Route
         $this->name = $name;
     }
 
+    /**
+     * Get or set route's HTTP method.
+     *
+     * @param HttpMethod|null $httpMethod To set an HTTP method
+     * @return HttpMethod|$this|self
+     */
     public function httpMethod(?HttpMethod $httpMethod = null): self|HttpMethod
     {
         if ($httpMethod !== null)
@@ -39,6 +51,12 @@ class Route
         return $this->httpMethod;
     }
 
+    /**
+     * Get or set route's path.
+     *
+     * @param string|null $path To set a path
+     * @return string|$this|self
+     */
     public function path(?string $path = null): self|string
     {
         if ($path !== null)
@@ -51,6 +69,12 @@ class Route
         return $this->path;
     }
 
+    /**
+     * Get or set route's controller class.
+     *
+     * @param string|null $controllerClass To set a controller class
+     * @return string|$this|self
+     */
     public function controller(?string $controllerClass = null): self|string
     {
         if ($controllerClass !== null)
@@ -63,6 +87,12 @@ class Route
         return $this->controllerClass;
     }
 
+    /**
+     * Get or set route's controller method.
+     *
+     * @param string|null $controllerMethod To set a controller method
+     * @return string|$this|self
+     */
     public function method(?string $controllerMethod = null): self|string
     {
         if ($controllerMethod !== null)
@@ -75,6 +105,11 @@ class Route
         return $this->controllerMethod;
     }
 
+    /**
+     * Remove route's controller method.
+     *
+     * @return $this
+     */
     public function removeMethod(): self
     {
         $this->controllerMethod = Sherpa::DEFAULT_CONTROLLER_METHOD;
@@ -82,6 +117,12 @@ class Route
         return $this;
     }
 
+    /**
+     * Get or set route's name.
+     *
+     * @param string|null $name To set a name
+     * @return string|$this|self
+     */
     public function name(?string $name = null): self|string
     {
         if ($name !== null)
@@ -94,6 +135,11 @@ class Route
         return $this->name;
     }
 
+    /**
+     * Remove route's name.
+     *
+     * @return $this
+     */
     public function removeName(): self
     {
         $this->name = null;

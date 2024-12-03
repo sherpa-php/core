@@ -4,6 +4,12 @@ namespace Sherpa\Core\exceptions;
 
 use Throwable;
 
+/**
+ * Sherpa Exception class.
+ * <p>
+ *     Provides utilities methods.
+ * </p>
+ */
 class SherpaException extends \Exception
 {
     /*

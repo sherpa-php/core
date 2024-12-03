@@ -2,6 +2,9 @@
 
 namespace Sherpa\Core\router\http;
 
+/**
+ * HTTP methods enum class.
+ */
 enum HttpMethod
 {
     case GET;
@@ -10,6 +13,12 @@ enum HttpMethod
     case PUT;
     case DELETE;
 
+    /**
+     * Give Enum value from a given HTTP method string.
+     *
+     * @param string $method HTTP method as string
+     * @return self Enum value for given method
+     */
     public static function from(string $method): self
     {
         return match (strtoupper($method))

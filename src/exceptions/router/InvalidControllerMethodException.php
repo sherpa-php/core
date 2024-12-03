@@ -5,6 +5,13 @@ namespace Sherpa\Core\exceptions\router;
 use Sherpa\Core\exceptions\SherpaException;
 use Throwable;
 
+/**
+ * Sherpa Exception
+ * <p>
+ *     To throw if given controller's method
+ *     does no longer exist.
+ * </p>
+ */
 class InvalidControllerMethodException extends SherpaException
 {
     public function __construct(string $controller,
