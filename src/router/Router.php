@@ -56,6 +56,24 @@ class Router
         return null;
     }
 
+    /**
+     * @throws InvalidControllerMethodException
+     */
+    public static function resolve(Route $route): void
+    {
+        $controller = $route->controller();
+        $method = $route->method();
+
+        $request = new Request();
+
+        if (!method_exists($controller, $method))
+        {
+            throw new InvalidControllerMethodException($controller, $method);
+        }
+
+        call_user_func([$controller, $method], $request);
+    }
+
     public static function routes(): array
     {
         return self::$routes;
