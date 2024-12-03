@@ -17,6 +17,13 @@ class SherpaRendering
                            array $props = [],
                            string $title = ""): self
     {
+        $viewPathSplit = explode(":", $viewPath, 1);
+
+        if (isset($viewPathSplit[1]))
+        {
+            $title = $viewPathSplit[1];
+        }
+
         extract($props);
 
         $template = $this->loadTemplate();
@@ -25,6 +32,8 @@ class SherpaRendering
         include $viewPath;
         $view = ob_get_clean();
 
+
+        /* Sherpa Template variables */
         $rendering = preg_replace_callback(
             "/@Sherpa\(Env\.([A-Z_]+)\)/",
             function ($matches)
