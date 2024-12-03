@@ -23,7 +23,7 @@ class Router
 
         $route = new Route(
             HttpMethod::GET,
-            $path,
+            self::preparePath($path),
             $controllerClass,
             $controllerMethod,
             null);
@@ -80,6 +80,11 @@ class Router
         }
 
         call_user_func([$controller, $method], $request);
+    }
+
+    private static function preparePath(string $path): string
+    {
+        return ltrim($path, '/');
     }
 
     public static function routes(): array
