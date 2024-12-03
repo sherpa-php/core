@@ -14,6 +14,6 @@ class UrlNotLinkedToAnyRouteException extends SherpaException
         $message = "Following URL is no longer linked to any route: "
                  . "$url";
 
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, 1002, $previous);
     }
 }

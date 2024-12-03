@@ -6,8 +6,17 @@ use Throwable;
 
 class SherpaException extends \Exception
 {
+    /*
+     * Sherpa Exceptions Conventions
+     * =================================
+     *
+     *      Global Error:       0
+     *      Router Exceptions:  1XXX
+     *
+     */
+
     public function __construct(string $message = "",
-                                string $code = "SHERPA_EXC_GBL",
+                                int $code = 0,
                                 ?Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
