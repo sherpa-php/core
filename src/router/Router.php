@@ -28,6 +28,88 @@ class Router
             $controllerMethod,
             null);
 
+        self::head($path, $controller);
+
+        return self::$routes[] = $route;
+    }
+
+    public static function post(string $path, array|string $controller): Route
+    {
+        $controllerClass = is_array($controller) && isset($controller[0])
+            ? $controller[0]
+            : $controller;
+
+        $controllerMethod = is_array($controller) && isset($controller[1])
+            ? $controller[1]
+            : Sherpa::DEFAULT_CONTROLLER_METHOD;
+
+        $route = new Route(
+            HttpMethod::POST,
+            self::preparePath($path),
+            $controllerClass,
+            $controllerMethod,
+            null);
+
+        return self::$routes[] = $route;
+    }
+
+    public static function head(string $path, array|string $controller): Route
+    {
+        $controllerClass = is_array($controller) && isset($controller[0])
+            ? $controller[0]
+            : $controller;
+
+        $controllerMethod = is_array($controller) && isset($controller[1])
+            ? $controller[1]
+            : Sherpa::DEFAULT_CONTROLLER_METHOD;
+
+        $route = new Route(
+            HttpMethod::HEAD,
+            self::preparePath($path),
+            $controllerClass,
+            $controllerMethod,
+            null);
+
+        return self::$routes[] = $route;
+    }
+
+    public static function put(string $path, array|string $controller): Route
+    {
+        $controllerClass = is_array($controller) && isset($controller[0])
+            ? $controller[0]
+            : $controller;
+
+        $controllerMethod = is_array($controller) && isset($controller[1])
+            ? $controller[1]
+            : Sherpa::DEFAULT_CONTROLLER_METHOD;
+
+        $route = new Route(
+            HttpMethod::PUT,
+            self::preparePath($path),
+            $controllerClass,
+            $controllerMethod,
+            null);
+
+        return self::$routes[] = $route;
+    }
+
+    public static function delete(string $path, array|string $controller): Route
+    {
+        $controllerClass = is_array($controller) && isset($controller[0])
+            ? $controller[0]
+            : $controller;
+
+        $controllerMethod = is_array($controller) && isset($controller[1])
+            ? $controller[1]
+            : Sherpa::DEFAULT_CONTROLLER_METHOD;
+
+        $route = new Route(
+            HttpMethod::DELETE,
+            self::preparePath($path),
+            $controllerClass,
+            $controllerMethod,
+            null);
+
         return self::$routes[] = $route;
     }
 
