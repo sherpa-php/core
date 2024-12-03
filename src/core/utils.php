@@ -77,3 +77,13 @@ function request(): Request
 {
     return new Request();
 }
+
+/**
+ * @param string $viewPath
+ * @param array $props
+ * @return SherpaRendering
+ */
+function render(string $viewPath, array $props = []): SherpaRendering
+{
+    return SherpaEngine::render($viewPath, $props);
+}
