@@ -172,7 +172,7 @@ class Router
 
     private static function preparePath(string $path): string
     {
-        return ltrim($path, '/');
+        return trim($path, '/');
     }
 
     public static function routes(): array
