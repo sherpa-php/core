@@ -34,7 +34,7 @@ class Request
     public function data(?string $key = null): mixed
     {
         return $key !== null
-            ? $this->data[$key] ?? null
+            ? self::secureData($this->data[$key]) ?? null
             : $this->data;
     }
 
@@ -45,5 +45,15 @@ class Request
     public function has(string $key): bool
     {
         return isset($this->data[$key]);
+    }
+
+    private static function secureData(mixed $data): mixed
+    {
+        if (is_string($data))
+        {
+            $data = htmlspecialchars($data);
+        }
+
+        return $data;
     }
 }
