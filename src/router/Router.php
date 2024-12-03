@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\router;
 
+use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\router\http\HttpMethod;
 
 class Router
@@ -16,7 +17,7 @@ class Router
 
         $controllerMethod = is_array($controller) && isset($controller[1])
             ? $controller[1]
-            : "__default";
+            : Sherpa::DEFAULT_CONTROLLER_METHOD;
 
         $route = new Route(
             HttpMethod::GET,
