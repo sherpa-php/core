@@ -8,7 +8,7 @@ class URI
 {
     public static function getExternalData(): array
     {
-        return array_filter(array_merge($_GET, $_POST),
+        return array_filter(self::getData(),
             function ($dataKey)
             {
                 return !str_starts_with(
@@ -19,12 +19,13 @@ class URI
 
     public static function getSherpaData(): array
     {
-        return array_filter($_REQUEST, function ($dataKey)
-        {
-            return str_starts_with(
-                $dataKey,
-                Sherpa::SHERPA_DATA_PREFIX);
-        }, ARRAY_FILTER_USE_KEY);
+        return array_filter(self::getData(),
+            function ($dataKey)
+            {
+                return str_starts_with(
+                    $dataKey,
+                    Sherpa::SHERPA_DATA_PREFIX);
+            }, ARRAY_FILTER_USE_KEY);
     }
 
     private static function getData(): array
@@ -42,5 +43,17 @@ class URI
         }
 
         return [];
+    }
+
+    public static function hasSherpaPath(): bool
+    {
+        return isset($_GET["sherpaf__path"]);
+    }
+
+    public static function getSherpaPath(): string
+    {
+        return self::hasSherpaPath()
+            ? $_GET["sherpaf__path"]
+            : "";
     }
 }

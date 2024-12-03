@@ -17,7 +17,7 @@ class Request
     public function __construct()
     {
         $this->httpMethod = HttpMethod::from($_SERVER["REQUEST_METHOD"]);
-        $this->url = Router::preparePath($_GET["sherpaf__path"]) ?? "";
+        $this->url = URI::getSherpaPath();
         $this->data = URI::getExternalData();
         $this->sherpaData = URI::getSherpaData();
     }
