@@ -170,7 +170,7 @@ class Router
         call_user_func([$instance, $method], $request);
     }
 
-    private static function preparePath(string $path): string
+    public static function preparePath(string $path): string
     {
         return trim($path, '/');
     }
