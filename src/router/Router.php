@@ -79,7 +79,8 @@ class Router
             throw new InvalidControllerMethodException($controller, $method);
         }
 
-        call_user_func([$controller, $method], $request);
+        $instance = new $controller();
+        call_user_func([$instance, $method], $request);
     }
 
     private static function preparePath(string $path): string
