@@ -31,11 +31,13 @@ class Router
         return self::$routes[] = $route;
     }
 
-    public static function getRouteByPath(string $path): ?Route
+    public static function getRouteByPath(string $path,
+                                          HttpMethod $httpMethod): ?Route
     {
         foreach (self::$routes as $route)
         {
-            if ($route->path() === $path)
+            if ($route->path() === $path
+                && $route->httpMethod() === $httpMethod)
             {
                 return $route;
             }
@@ -44,11 +46,13 @@ class Router
         return null;
     }
 
-    public static function getRouteByName(string $name): ?Route
+    public static function getRouteByName(string $name,
+                                          HttpMethod $httpMethod): ?Route
     {
         foreach (self::$routes as $route)
         {
-            if ($route->name() === $name)
+            if ($route->name() === $name
+                && $route->httpMethod() === $httpMethod)
             {
                 return $route;
             }
@@ -64,7 +68,8 @@ class Router
     public static function resolve(Request $request): void
     {
         $url = $request->url;
-        $route = self::getRouteByPath($url);
+        $httpMethod = $request->httpMethod;
+        $route = self::getRouteByPath($url, $httpMethod);
 
         if ($route === null)
         {
