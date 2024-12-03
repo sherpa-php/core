@@ -25,7 +25,7 @@ class Request
     public function data(?string $key = null): mixed
     {
         return $key !== null
-            ? $this->data[$key]
+            ? $this->data[$key] ?? null
             : $this->data;
     }
 
