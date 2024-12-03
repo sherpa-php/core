@@ -18,7 +18,10 @@ class SherpaRendering
         extract($props);
 
         $template = $this->loadTemplate();
-        $view = include $viewPath;
+
+        ob_start();
+        include $viewPath;
+        $view = ob_get_clean();
 
         str_replace("@Sherpa(.Rendering)", $view, $template);
 
