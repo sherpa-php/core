@@ -20,7 +20,7 @@ class SherpaRendering
         $template = $this->loadTemplate();
         $view = include $viewPath;
 
-        echo str_replace("@Sherpa(.Rendering)", $view, $template);
+        str_replace("@Sherpa(.Rendering)", $view, $template);
 
         return $this;
     }
