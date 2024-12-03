@@ -1,5 +1,7 @@
 <?php
 
+namespace Sherpa\Core\views;
+
 class SherpaRendering
 {
     public private(set) string $templatePath;
