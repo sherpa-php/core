@@ -17,15 +17,6 @@ class SherpaRendering
                            array $props = [],
                            string $title = ""): self
     {
-        $viewPathSplit = explode(":", $viewPath, 1);
-
-        if (isset($viewPathSplit[1]))
-        {
-            $title = $viewPathSplit[1];
-        }
-
-        $viewPath = $viewPathSplit[0];
-
         extract($props);
 
         $template = $this->loadTemplate();
