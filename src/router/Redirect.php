@@ -2,6 +2,8 @@
 
 namespace Sherpa\Core\router;
 
+use Sherpa\Core\core\Sherpa;
+
 /**
  * Redirect utility class.
  * <p>
@@ -19,7 +21,9 @@ class Redirect
      */
     public static function to(string $path): bool
     {
-        header("Location: $path");
+        $urn = Sherpa::env("SITE_URL");
+
+        header("Location: $urn$path");
 
         return true;
     }
@@ -40,7 +44,9 @@ class Redirect
             return false;
         }
 
-        header("Location: {$route->path()}");
+        $urn = Sherpa::env("SITE_URL");
+
+        header("Location: $urn{$route->path()}");
 
         return true;
     }
