@@ -251,7 +251,8 @@ class Router
                 throw new NotDeclaredMiddlewareException($middleware);
             }
 
-            $middlewareResponse = (new $middlewareClassName)->run();
+            $middlewareResponse = (new $middlewareClassName)
+                ->run($request);
 
             if ($middlewareResponse === MiddlewareResponse::ABORT)
             {
