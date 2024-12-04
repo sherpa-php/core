@@ -15,6 +15,7 @@
     ],
     "require": {
         "sherpa/trail": "dev-dev",
-        "symfony/string": "7.3.x-dev"
+        "symfony/string": "7.3.x-dev",
+        "sherpa/db": "dev-main"
     }
 }

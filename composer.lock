@@ -4,8 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "98821fad2fa847d004867b9ff7bb32c1",
+    "content-hash": "0b3650dc33303e627523f90bf6ba40d0",
     "packages": [
+        {
+            "name": "sherpa/db",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sherpa-php/db.git",
+                "reference": "918ff517d09356212a4f782fc813c56b630321ee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sherpa-php/db/zipball/918ff517d09356212a4f782fc813c56b630321ee",
+                "reference": "918ff517d09356212a4f782fc813c56b630321ee",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sherpa\\Db\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "belicfr",
+                    "email": "96206878+belicfr@users.noreply.github.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/sherpa-php/db/issues",
+                "source": "https://github.com/sherpa-php/db/tree/main"
+            },
+            "time": "2024-12-04T09:13:36+00:00"
+        },
         {
             "name": "sherpa/trail",
             "version": "dev-dev",
@@ -456,6 +493,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "sherpa/db": 20,
         "sherpa/trail": 20,
         "symfony/string": 20
     },
