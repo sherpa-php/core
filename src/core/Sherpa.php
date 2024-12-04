@@ -24,4 +24,21 @@ class Sherpa
 
     /** Sherpa controllers default method name */
     public const string DEFAULT_CONTROLLER_METHOD = "__default";
+
+    private static array $env = [];
+
+    public static function loadEnv(): void
+    {
+        self::$env = $_ENV;
+    }
+
+    public static function env(?string $key = null): mixed
+    {
+        if ($key === null)
+        {
+            return self::$env;
+        }
+
+        return self::$env[$key] ?? null;
+    }
 }
