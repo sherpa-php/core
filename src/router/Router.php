@@ -256,7 +256,7 @@ class Router
 
             if ($middlewareResponse === MiddlewareResponse::ABORT)
             {
-                return;
+                abort(404);
             }
         }
 
