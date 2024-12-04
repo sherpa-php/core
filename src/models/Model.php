@@ -10,7 +10,7 @@ class Model
     use CRUD;
 
     /** Database Table name. */
-    public private(set) string $table;
+    public protected(set) string $table;
 
     public function __construct()
     {
