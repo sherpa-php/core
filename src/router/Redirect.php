@@ -17,37 +17,33 @@ class Redirect
      * Redirects using path.
      *
      * @param string $path
-     * @return bool If redirection is successful
      */
-    public static function to(string $path): bool
+    public static function to(string $path): void
     {
         $urn = Sherpa::env("SITE_URL");
 
         header("Location: $urn$path");
-
-        return true;
+        die;
     }
 
     /**
      * Redirects using route's name.
      *
      * @param string $name Route's name
-     * @return bool If redirection is successful
      */
-    public static function route(string $name): bool
+    public static function route(string $name): void
     {
         $request = new Request();
         $route = Router::getRouteByName($name, $request->httpMethod);
 
         if ($route === null)
         {
-            return false;
+            abort(404);
         }
 
         $urn = Sherpa::env("SITE_URL");
 
         header("Location: $urn{$route->path()}");
-
-        return true;
+        die;
     }
 }
