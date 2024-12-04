@@ -18,19 +18,22 @@ class Route
     private string $controllerClass;
     private string $controllerMethod;
     private ?string $name;
+    private array $middlewares;
 
     public function __construct(
         HttpMethod $httpMethod,
         string $path,
         string $controllerClass,
         string $controllerMethod,
-        ?string $name = null)
+        ?string $name = null,
+        array $middlewares = [])
     {
         $this->httpMethod = $httpMethod;
         $this->path = $path;
         $this->controllerClass = $controllerClass;
         $this->controllerMethod = $controllerMethod;
         $this->name = $name;
+        $this->middlewares = $middlewares;
     }
 
     /**
@@ -145,5 +148,21 @@ class Route
         $this->name = null;
 
         return $this;
+    }
+
+    /**
+     * Get or set route's middlewares.
+     *
+     * @param array|null $middlewares To set route's middlewares
+     * @return array Updated route's middlewares array
+     */
+    public function middlewares(?array $middlewares = null): array
+    {
+        if ($middlewares !== null)
+        {
+            $this->middlewares = $middlewares;
+        }
+
+        return $this->middlewares;
     }
 }

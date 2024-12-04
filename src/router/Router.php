@@ -4,6 +4,7 @@ namespace Sherpa\Core\router;
 
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\exceptions\router\InvalidControllerMethodException;
+use Sherpa\Core\middlewares\MiddlewareResponse;
 use Sherpa\Core\router\http\HttpMethod;
 
 /**
@@ -235,6 +236,18 @@ class Router
         if (!method_exists($controller, $method))
         {
             throw new InvalidControllerMethodException($controller, $method);
+        }
+
+        $middlewares = $route->middlewares();
+
+        foreach ($middlewares as $middleware)
+        {
+            $middlewareResponse = new $middleware()->run();
+
+            if ($middlewareResponse === MiddlewareResponse::ABORT)
+            {
+                return;
+            }
         }
 
         $instance = new $controller();
