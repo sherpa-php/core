@@ -4,23 +4,22 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b3650dc33303e627523f90bf6ba40d0",
+    "content-hash": "0e53e163a6c621289853b0db7c70f03f",
     "packages": [
         {
             "name": "sherpa/db",
-            "version": "dev-main",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sherpa-php/db.git",
-                "reference": "918ff517d09356212a4f782fc813c56b630321ee"
+                "reference": "cf2c07e378e43c6a0387a3992d1e1ce8d9481556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sherpa-php/db/zipball/918ff517d09356212a4f782fc813c56b630321ee",
-                "reference": "918ff517d09356212a4f782fc813c56b630321ee",
+                "url": "https://api.github.com/repos/sherpa-php/db/zipball/cf2c07e378e43c6a0387a3992d1e1ce8d9481556",
+                "reference": "cf2c07e378e43c6a0387a3992d1e1ce8d9481556",
                 "shasum": ""
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -39,9 +38,9 @@
             ],
             "support": {
                 "issues": "https://github.com/sherpa-php/db/issues",
-                "source": "https://github.com/sherpa-php/db/tree/main"
+                "source": "https://github.com/sherpa-php/db/tree/dev"
             },
-            "time": "2024-12-04T09:13:36+00:00"
+            "time": "2024-12-04T09:33:30+00:00"
         },
         {
             "name": "sherpa/trail",
@@ -49,12 +48,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sherpa-php/trail.git",
-                "reference": "ee970b9c848b857b9e639b44511740e06678f08d"
+                "reference": "fb75788de015d77582fcb122a84ccdd4ac156674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sherpa-php/trail/zipball/ee970b9c848b857b9e639b44511740e06678f08d",
-                "reference": "ee970b9c848b857b9e639b44511740e06678f08d",
+                "url": "https://api.github.com/repos/sherpa-php/trail/zipball/fb75788de015d77582fcb122a84ccdd4ac156674",
+                "reference": "fb75788de015d77582fcb122a84ccdd4ac156674",
                 "shasum": ""
             },
             "type": "library",
@@ -77,7 +76,7 @@
                 "issues": "https://github.com/sherpa-php/trail/issues",
                 "source": "https://github.com/sherpa-php/trail/tree/dev"
             },
-            "time": "2024-12-04T05:34:13+00:00"
+            "time": "2024-12-04T09:26:36+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
