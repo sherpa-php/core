@@ -3,6 +3,7 @@
 namespace Sherpa\Core\exceptions\middlewares;
 
 use Sherpa\Core\exceptions\SherpaException;
+use Throwable;
 
 /**
  * Sherpa Exception
