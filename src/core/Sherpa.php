@@ -25,13 +25,22 @@ class Sherpa
     /** Sherpa controllers default method name */
     public const string DEFAULT_CONTROLLER_METHOD = "__default";
 
+    /** $_ENV variables */
     private static array $env = [];
 
+    /**
+     * Saves all $_ENV variables statically.
+     */
     public static function loadEnv(): void
     {
         self::$env = $_ENV;
     }
 
+    /**
+     * @param string|null $key
+     * @return mixed If $key is not provided, all env variables;
+     *               else env variable value using $key
+     */
     public static function env(?string $key = null): mixed
     {
         if ($key === null)
