@@ -4,6 +4,13 @@ namespace Sherpa\Core\exceptions\middlewares;
 
 use Sherpa\Core\exceptions\SherpaException;
 
+/**
+ * Sherpa Exception
+ * <p>
+ *     To throw if given middleware key does
+ *     no longer exist.
+ * </p>
+ */
 class NotDeclaredMiddlewareException extends SherpaException
 {
     public function __construct(string $middlewareKey,
