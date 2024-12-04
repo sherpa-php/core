@@ -3,6 +3,7 @@
 namespace Sherpa\Core\router;
 
 use Sherpa\Core\core\Sherpa;
+use Sherpa\Core\exceptions\middlewares\NotDeclaredMiddlewareException;
 use Sherpa\Core\exceptions\router\InvalidControllerMethodException;
 use Sherpa\Core\middlewares\MiddlewareResponse;
 use Sherpa\Core\router\http\HttpMethod;
@@ -12,8 +13,8 @@ use Sherpa\Core\router\http\HttpMethod;
  */
 class Router
 {
-    /** Routes array */
     private static array $routes = [];
+    private static array $middlewares = [];
 
     /**
      * Creates a GET route.
@@ -217,6 +218,7 @@ class Router
      * </p>
      *
      * @throws InvalidControllerMethodException If given controller's method
+     * @throws NotDeclaredMiddlewareException
      *                                          does no longer exist
      */
     public static function resolve(Request $request): void
@@ -242,7 +244,14 @@ class Router
 
         foreach ($middlewares as $middleware)
         {
-            $middlewareResponse = new $middleware()->run();
+            $middlewareClassName = self::middlewares()[$middleware];
+
+            if (!isset($middlewareClassName))
+            {
+                throw new NotDeclaredMiddlewareException($middleware);
+            }
+
+            $middlewareResponse = new $middlewareClassName->run();
 
             if ($middlewareResponse === MiddlewareResponse::ABORT)
             {
@@ -272,5 +281,20 @@ class Router
     public static function routes(): array
     {
         return self::$routes;
+    }
+
+    /**
+     * Get or set router's middlewares
+     *
+     * @return array Router's middlewares array
+     */
+    public static function middlewares(?array $middlewares = null): array
+    {
+        if ($middlewares !== null)
+        {
+            self::$middlewares = $middlewares;
+        }
+
+        return self::$middlewares;
     }
 }
