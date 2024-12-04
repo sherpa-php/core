@@ -17,6 +17,6 @@ class Model
         $this->table = Name::getDBNameFromModel(static::class);
     }
 
-    private static array $public = [];
-    private static array $hidden = [];
+    protected static array $public = [];
+    protected static array $hidden = [];
 }
