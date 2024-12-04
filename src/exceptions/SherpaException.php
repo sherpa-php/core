@@ -16,8 +16,9 @@ class SherpaException extends \Exception
      * Sherpa Exceptions Conventions
      * =================================
      *
-     *      Global Error:       0
-     *      Router Exceptions:  1XXX
+     *      Global Error:           0
+     *      Router Exceptions:      10XX
+     *      Middlewares Exceptions: 11XX
      *
      */
 
