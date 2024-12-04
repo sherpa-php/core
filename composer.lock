@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sherpa-php/db.git",
-                "reference": "cf2c07e378e43c6a0387a3992d1e1ce8d9481556"
+                "reference": "7123e02b0ad8edc1fe3d5855c8fac730040fb745"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sherpa-php/db/zipball/cf2c07e378e43c6a0387a3992d1e1ce8d9481556",
-                "reference": "cf2c07e378e43c6a0387a3992d1e1ce8d9481556",
+                "url": "https://api.github.com/repos/sherpa-php/db/zipball/7123e02b0ad8edc1fe3d5855c8fac730040fb745",
+                "reference": "7123e02b0ad8edc1fe3d5855c8fac730040fb745",
                 "shasum": ""
             },
             "type": "library",
@@ -40,7 +40,7 @@
                 "issues": "https://github.com/sherpa-php/db/issues",
                 "source": "https://github.com/sherpa-php/db/tree/dev"
             },
-            "time": "2024-12-04T09:33:30+00:00"
+            "time": "2024-12-04T09:42:34+00:00"
         },
         {
             "name": "sherpa/trail",
@@ -48,13 +48,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sherpa-php/trail.git",
-                "reference": "fb75788de015d77582fcb122a84ccdd4ac156674"
+                "reference": "8ec1e1a3e21fdcbb63131255a638e91332adf577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sherpa-php/trail/zipball/fb75788de015d77582fcb122a84ccdd4ac156674",
-                "reference": "fb75788de015d77582fcb122a84ccdd4ac156674",
+                "url": "https://api.github.com/repos/sherpa-php/trail/zipball/8ec1e1a3e21fdcbb63131255a638e91332adf577",
+                "reference": "8ec1e1a3e21fdcbb63131255a638e91332adf577",
                 "shasum": ""
+            },
+            "require": {
+                "sherpa/db": "dev-dev"
             },
             "type": "library",
             "autoload": {
@@ -76,7 +79,7 @@
                 "issues": "https://github.com/sherpa-php/trail/issues",
                 "source": "https://github.com/sherpa-php/trail/tree/dev"
             },
-            "time": "2024-12-04T09:26:36+00:00"
+            "time": "2024-12-04T09:42:52+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
