@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sherpa-php/trail.git",
-                "reference": "694387d28a4cae868df96c2331e0ac912c8a92b0"
+                "reference": "ee970b9c848b857b9e639b44511740e06678f08d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sherpa-php/trail/zipball/694387d28a4cae868df96c2331e0ac912c8a92b0",
-                "reference": "694387d28a4cae868df96c2331e0ac912c8a92b0",
+                "url": "https://api.github.com/repos/sherpa-php/trail/zipball/ee970b9c848b857b9e639b44511740e06678f08d",
+                "reference": "ee970b9c848b857b9e639b44511740e06678f08d",
                 "shasum": ""
             },
             "type": "library",
@@ -40,7 +40,7 @@
                 "issues": "https://github.com/sherpa-php/trail/issues",
                 "source": "https://github.com/sherpa-php/trail/tree/dev"
             },
-            "time": "2024-12-04T04:17:57+00:00"
+            "time": "2024-12-04T05:34:13+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
