@@ -19,6 +19,7 @@ class SherpaException extends \Exception
      *      Global Error:           0
      *      Router Exceptions:      10XX
      *      Middlewares Exceptions: 11XX
+     *      Database Exceptions:    12XX
      *
      */
 
