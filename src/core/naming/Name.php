@@ -10,7 +10,9 @@ class Name
     public static function getDBNameFromModel(string $model): string
     {
         $english = new EnglishInflector();
-        $modelName = u(basename($model));
+
+        $modelName = explode('\\', basename($model));
+        $modelName = u(array_pop($modelName));
 
         return $english->pluralize($modelName)[0]
             ?? $modelName->toString();
