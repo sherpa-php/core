@@ -1,5 +1,7 @@
 <?php
 
+namespace Sherpa\Core\middlewares;
+
 use Sherpa\Core\router\Request;
 
 interface Middleware
