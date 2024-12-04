@@ -6,5 +6,5 @@ use Sherpa\Core\router\Request;
 
 interface Middleware
 {
-    public function run(Request $request);
+    public function run(Request $request): MiddlewareResponse;
 }
