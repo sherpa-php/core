@@ -61,6 +61,8 @@ class Sherpa
         return [
             "dbms" => self::env("DB_DBMS"),
             "host" => self::env("DB_HOST"),
+            "port" => self::env("DB_PORT"),
+            "charset" => self::env("DB_CHARSET"),
             "dbname" => self::env("DB_NAME"),
             "user" => self::env("DB_USER"),
             "password" => self::env("DB_PASSWORD"),
