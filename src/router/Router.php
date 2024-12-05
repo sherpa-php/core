@@ -218,8 +218,9 @@ class Router
      * </p>
      *
      * @throws InvalidControllerMethodException If given controller's method
-     * @throws NotDeclaredMiddlewareException
      *                                          does no longer exist
+     * @throws NotDeclaredMiddlewareException If required middleware does no
+     *                                        longer exist
      */
     public static function resolve(Request $request): void
     {
