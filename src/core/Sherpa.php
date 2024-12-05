@@ -50,4 +50,20 @@ class Sherpa
 
         return self::$env[$key] ?? null;
     }
+
+    /**
+     * SECURITY WARNING: DO NOT SHARE TO CLIENT!
+     *
+     * @return array All database credentials
+     */
+    public static function db(): array
+    {
+        return [
+            "dbms" => self::env("DB_DBMS"),
+            "host" => self::env("DB_HOST"),
+            "dbname" => self::env("DB_NAME"),
+            "user" => self::env("DB_USER"),
+            "password" => self::env("DB_PASSWORD"),
+        ];
+    }
 }
