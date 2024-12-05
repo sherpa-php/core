@@ -5,6 +5,7 @@
  */
 
 use Sherpa\Core\core\Sherpa;
+use Sherpa\Core\debugging\Debug;
 use Sherpa\Core\router\Request;
 
 
@@ -76,4 +77,24 @@ function abort(int $code): void
 function request(): Request
 {
     return new Request();
+}
+
+/**
+ * Dumps provided arguments using Sherpa Interface.
+ *
+ * @param mixed ...$args
+ */
+function dump(mixed ...$args): void
+{
+    Debug::dump(...$args);
+}
+
+/**
+ * Dumps and dies.
+ *
+ * @param mixed ...$args
+ */
+function dd(mixed ...$args): void
+{
+    Debug::dd(...$args);
 }
