@@ -9,9 +9,13 @@ sherpa[component=dump] {
 sherpa[component=dump]:not(:last-of-type) {
   margin-bottom: 20px;
 }
-sherpa[component=dump] > pre {
-  margin: 0 0 10px;
+sherpa[component=dump] > header {
+  margin-bottom: 10px;
   font-size: 0.7rem;
+}
+sherpa[component=dump] > pre {
+  margin: 0;
+  font-size: 0.8rem;
 }
 
 /*# sourceMappingURL=dump.css.map */
