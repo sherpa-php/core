@@ -26,7 +26,7 @@ class Debug
             var_dump($arg);
             $dump = ob_get_clean();
 
-            echo str_replace("Sherpa(.Dumping)", $dump, $gi);
+            echo str_replace("@Sherpa(.Dumping)", $dump, $gi);
         }
     }
 
