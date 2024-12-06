@@ -18,7 +18,7 @@ class Debug
             echo "</style>";
         }
 
-        $gi = file_get_contents("rendering/dump.html");
+        $gi = file_get_contents(__DIR__ . "/rendering/dump.html");
 
         foreach ($args as $arg)
         {
