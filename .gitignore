@@ -2,3 +2,4 @@
 .idea/
 .git/
 composer.lock
+src/debugging/rendering/dump.css.map
