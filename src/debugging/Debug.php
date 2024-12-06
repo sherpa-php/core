@@ -11,9 +11,8 @@ class Debug
      */
     public static function dump(mixed ...$args): void
     {
-        echo "<pre>";
-        var_dump(...$args);
-        echo "</pre>";
+        include_once "rendering/dump.css";
+        include "rendering/dump.html";
     }
 
     /**
