@@ -1,5 +1,5 @@
 $bg: #1b1b1b
-$border: darkorange
+$border: #CCC
 
 sherpa[component="dump"]
   padding: 10px
@@ -8,4 +8,5 @@ sherpa[component="dump"]
 
   border: solid 1px $border
 
-  box-shadow: 0 -4px 20px rgba(0 0 0 / .25)
+  &:not(:last-of-type)
+    margin-bottom: 20px

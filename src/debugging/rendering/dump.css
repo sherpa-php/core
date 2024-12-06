@@ -1,8 +1,10 @@
 sherpa[component=dump] {
   padding: 10px;
   background-color: white;
-  border: solid 1px darkorange;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+  border: solid 1px #CCC;
+}
+sherpa[component=dump]:not(:last-of-type) {
+  margin-bottom: 20px;
 }
 
 /*# sourceMappingURL=dump.css.map */
