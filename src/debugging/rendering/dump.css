@@ -4,6 +4,7 @@ sherpa[component=dump] {
   border: solid 1px #CCC;
   border-radius: 10px;
   display: block;
+  font-family: monospace;
 }
 sherpa[component=dump]:not(:last-of-type) {
   margin-bottom: 20px;
