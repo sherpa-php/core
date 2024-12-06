@@ -11,7 +11,11 @@ class Debug
      */
     public static function dump(mixed ...$args): void
     {
-        include_once "rendering/dump.css";
+        if (!in_array("rendering/dump.css", get_included_files()))
+        {
+            include "rendering/dump.css";
+        }
+
         include "rendering/dump.html";
     }
 
