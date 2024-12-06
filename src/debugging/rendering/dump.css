@@ -1,0 +1,16 @@
+sherpa[component=dump] {
+  padding: 5px;
+  background-color: darkorange;
+}
+sherpa[component=dump],
+sherpa[component=dump] > .layer {
+  border: solid 1px #1b1b1b;
+  border-radius: 15px;
+}
+sherpa[component=dump] > .layer {
+  width: 100px;
+  height: 100px;
+  background-color: #1b1b1b;
+}
+
+/*# sourceMappingURL=dump.css.map */
