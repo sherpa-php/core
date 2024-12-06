@@ -2,9 +2,14 @@ sherpa[component=dump] {
   padding: 10px;
   background-color: white;
   border: solid 1px #CCC;
+  border-radius: 10px;
+  display: block;
 }
 sherpa[component=dump]:not(:last-of-type) {
   margin-bottom: 20px;
+}
+sherpa[component=dump] > pre {
+  margin: 0;
 }
 
 /*# sourceMappingURL=dump.css.map */

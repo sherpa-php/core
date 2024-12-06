@@ -18,13 +18,13 @@ class Debug
             echo "</style>";
         }
 
+        $gi = file_get_contents("rendering/dump.html");
+
         foreach ($args as $arg)
         {
             ob_start();
             var_dump($arg);
             $dump = ob_get_clean();
-
-            $gi = file_get_contents("rendering/dump.html");
 
             echo str_replace("Sherpa(.Dumping)", $dump, $gi);
         }
