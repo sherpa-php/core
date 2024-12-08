@@ -28,6 +28,9 @@ class Sherpa
     /** $_ENV variables */
     private static array $env = [];
 
+    /** Validator Rules */
+    private static array $rules = [];
+
     /**
      * Saves all $_ENV variables statically.
      */
@@ -67,5 +70,23 @@ class Sherpa
             "user" => self::env("DB_USER"),
             "password" => self::env("DB_PASSWORD"),
         ];
+    }
+
+    /**
+     * Loads registered Validator Rules.
+     *
+     * @param array $rules
+     */
+    public static function loadRules(array $rules = []): void
+    {
+        self::$rules = $rules;
+    }
+
+    /**
+     * @return array Validator Rules
+     */
+    public static function rules(): array
+    {
+        return self::$rules;
     }
 }
