@@ -6,25 +6,23 @@ use Sherpa\Core\router\Request;
 use Sherpa\Core\validation\enums\Response;
 
 /**
- * Rule main class.
+ * Rule interface.
  * <p>
- *     Implements all rule utilities methods.
+ *     Defines all rule utilities methods.
  * </p>
  */
-abstract class Rule
+interface Rule
 {
-    public private(set) bool $response;
-
     /**
      * Used by Validator for verifying to get state.
      *
      * @param Request $request
      * @return bool|Response Rule response state
      */
-    public abstract function handle(Request $request): bool|Response;
+    public function handle(Request $request): bool|Response;
 
     /**
      * @return string Rule error message
      */
-    public abstract function getError(): string;
+    public function getError(): string;
 }
