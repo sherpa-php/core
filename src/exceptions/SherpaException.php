@@ -20,6 +20,7 @@ class SherpaException extends \Exception
      *      Router Exceptions:      10XX
      *      Middlewares Exceptions: 11XX
      *      Database Exceptions:    12XX
+     *      Validator Exceptions:   13XX
      *
      */
 
