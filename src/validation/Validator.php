@@ -4,6 +4,7 @@ namespace Sherpa\Core\validation;
 
 use Sherpa\Core\exceptions\validator\RuleDoesNotExistException;
 use Sherpa\Core\router\Request;
+use Sherpa\Core\validation\enums\Response;
 
 class Validator
 {
@@ -78,9 +79,10 @@ class Validator
                 }
 
                 $rule = new $requiredRule();
-                $rule->handle($data[$field]);
+                $response = $rule->handle($request, $data[$field]);
 
-                if (!$rule->response)
+                if (($response instanceof Response) && $response === Response::DENY
+                    || !$response)
                 {
                     $validator->addError($field, $rule->getError());
                 }
