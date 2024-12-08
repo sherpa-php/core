@@ -17,9 +17,10 @@ interface Rule
      * Used by Validator for verifying to get state.
      *
      * @param Request $request
+     * @param mixed ...$values
      * @return bool|Response Rule response state
      */
-    public function handle(Request $request): bool|Response;
+    public function handle(Request $request, mixed ...$values): bool|Response;
 
     /**
      * @return string Rule error message
