@@ -34,7 +34,9 @@ class Request
     public function data(?string $key = null): mixed
     {
         return $key !== null
-            ? self::secureData($this->data[$key]) ?? null
+            ? ($this->has($key)
+                ? self::secureData($this->data[$key])
+                : null)
             : $this->data;
     }
 
