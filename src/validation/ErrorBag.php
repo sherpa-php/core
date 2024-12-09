@@ -67,7 +67,7 @@ class ErrorBag
      */
     public function get(?string $key = null): array|string|null
     {
-        return $key !== null
+        return $key === null
             ? $this->errors
             : ($this->has($key)
                 ? $this->errors[$key]
