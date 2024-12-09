@@ -13,6 +13,9 @@ use Sherpa\Core\router\utils\URI;
  */
 class Request
 {
+    /** Current Request object. */
+    private static ?self $current = null;
+
     public private(set) HttpMethod $httpMethod;
     public private(set) string $url;
     private array $data;
@@ -66,5 +69,13 @@ class Request
         }
 
         return $data;
+    }
+
+    /**
+     * @return self|null Current (singleton) Request object
+     */
+    public static function current(): ?self
+    {
+        return static::$current;
     }
 }
