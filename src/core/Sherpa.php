@@ -89,4 +89,13 @@ class Sherpa
     {
         return self::$rules;
     }
+
+    /**
+     * @param string $name Rule registration name
+     * @return string|null
+     */
+    public static function rule(string $name): ?string
+    {
+        return static::$rules[$name] ?? null;
+    }
 }
