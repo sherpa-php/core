@@ -49,6 +49,15 @@ class Request
         return isset($this->data[$key]);
     }
 
+    /**
+     * Secures provided data for using in back-end.
+     * <p>
+     *     It prevents from injections and other kinds of attack.
+     * </p>
+     *
+     * @param mixed $data Data value to secure
+     * @return mixed Secured data value
+     */
     private static function secureData(mixed $data): mixed
     {
         if (is_string($data))
