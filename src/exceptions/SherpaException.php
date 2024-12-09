@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\exceptions;
 
+use Sherpa\Core\security\Security;
 use Throwable;
 
 /**
@@ -28,6 +29,8 @@ class SherpaException extends \Exception
                                 int $code = 0,
                                 ?Throwable $previous = null)
     {
+        $message = Security::secureData($message);
+
         parent::__construct($message, $code, $previous);
     }
 }
