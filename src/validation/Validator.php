@@ -32,7 +32,7 @@ class Validator
      */
     public function addError(string $input, string $message): self
     {
-        $this->errors[$input] = $message;
+        $this->errors->add($input, $message);
 
         return $this;
     }
