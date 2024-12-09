@@ -5,6 +5,7 @@ namespace Sherpa\Core\validation;
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\exceptions\validator\RuleDoesNotExistException;
 use Sherpa\Core\router\Request;
+use Sherpa\Core\security\Security;
 use Sherpa\Core\validation\enums\Response;
 
 /**
@@ -62,7 +63,8 @@ class Rule
         return [
             "data" => $data,
             "response" => $responseBoolean,
-            "errorMessage" => $rule->getError(),
+            "errorMessage" => Security::secureData(
+                $rule->getError()),
         ];
     }
 }
