@@ -12,17 +12,13 @@ class Validator
     private array $data;
     private array $rules;
 
-    /** Current Request object. */
-    private Request $request;
-
     /** Validation errors bag. */
     private array $errors = [];
 
-    public function __construct(array $data, array $rules, Request $request)
+    public function __construct(array $data, array $rules)
     {
         $this->data = $data;
         $this->rules = $rules;
-        $this->request = $request;
     }
 
     /**
@@ -63,14 +59,9 @@ class Validator
      * @throws RuleDoesNotExistException If provided rule
      *                                   does no longer exist
      */
-    public static function run(array $data, array $rules, ?Request $request = null): self
+    public static function run(Request $request, array $rules): self
     {
-        if ($request === null)
-        {
-            $request = new Request();
-        }
-
-        $validator = new self($data, $rules, $request);
+        $validator = new self($request->data(), $rules);
 
         foreach ($rules as $field => $requiredRules)
         {
@@ -84,7 +75,7 @@ class Validator
                 }
 
                 $rule = new $ruleClassName();
-                $response = $rule->handle($request, $data[$field]);
+                $response = $rule->handle($request, $request->data($field));
 
                 if (($response instanceof Response) && $response === Response::DENY
                     || !$response)
