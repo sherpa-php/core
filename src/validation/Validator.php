@@ -13,12 +13,13 @@ class Validator
     private array $rules;
 
     /** Validation errors bag. */
-    private array $errors = [];
+    private ErrorBag $errors;
 
     public function __construct(array $data, array $rules)
     {
         $this->data = $data;
         $this->rules = $rules;
+        $this->errors = new ErrorBag();
     }
 
     /**
@@ -44,9 +45,7 @@ class Validator
      */
     public function errors(?string $input = null): array|string|null
     {
-        return $input !== null
-            ? $this->errors[$input] ?? null
-            : $this->errors;
+        return $this->errors->get($input);
     }
 
     /**
