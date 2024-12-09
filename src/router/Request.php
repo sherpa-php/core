@@ -4,6 +4,7 @@ namespace Sherpa\Core\router;
 
 use Sherpa\Core\router\http\HttpMethod;
 use Sherpa\Core\router\utils\URI;
+use Sherpa\Core\security\Security;
 
 /**
  * Request entity class.
@@ -38,7 +39,7 @@ class Request
     {
         return $key !== null
             ? ($this->has($key)
-                ? self::secureData($this->data[$key])
+                ? Security::secureData($this->data[$key])
                 : null)
             : $this->data;
     }
@@ -50,25 +51,6 @@ class Request
     public function has(string $key): bool
     {
         return isset($this->data[$key]);
-    }
-
-    /**
-     * Secures provided data for using in back-end.
-     * <p>
-     *     It prevents from injections and other kinds of attack.
-     * </p>
-     *
-     * @param mixed $data Data value to secure
-     * @return mixed Secured data value
-     */
-    private static function secureData(mixed $data): mixed
-    {
-        if (is_string($data))
-        {
-            $data = htmlspecialchars($data);
-        }
-
-        return $data;
     }
 
     /**
