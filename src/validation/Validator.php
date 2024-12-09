@@ -43,7 +43,12 @@ class Validator
      * @param string|null $input
      * @return array Filtered errors bag
      */
-    public function errors(?string $input = null): array|string|null
+    public function errors(): ErrorBag
+    {
+        return $this->errors;
+    }
+
+    public function error(string $input): ?string
     {
         return $this->errors->get($input);
     }
