@@ -45,7 +45,7 @@ class Validator
     public function errors(?string $input = null): array
     {
         return $input === null
-            ? $this->errors[$input]
+            ? $this->errors[$input] ?? []
             : $this->errors;
     }
 
