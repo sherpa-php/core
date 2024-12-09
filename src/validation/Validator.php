@@ -52,36 +52,21 @@ class Validator
     /**
      * Validates inputs data using provided rules.
      *
-     * @param array $data Request data array
+     * @param Request $request
      * @param array $rules
-     * @param Request|null $request
      * @return self
-     * @throws RuleDoesNotExistException If provided rule
-     *                                   does no longer exist
      */
     public static function run(Request $request, array $rules): self
     {
         $validator = new self($request->data(), $rules);
 
-        foreach ($rules as $field => $requiredRules)
+        foreach ($rules as $rule)
         {
-            foreach ($requiredRules as $requiredRule)
+            if (!$rule["response"])
             {
-                $ruleClassName = Sherpa::rule($requiredRule);
-
-                if (!class_exists($ruleClassName))
-                {
-                    throw new RuleDoesNotExistException($requiredRule);
-                }
-
-                $rule = new $ruleClassName();
-                $response = $rule->handle($request, $request->data($field));
-
-                if (($response instanceof Response) && $response === Response::DENY
-                    || !$response)
-                {
-                    $validator->addError($field, $rule->getError());
-                }
+                $validator->addError(
+                    $rule["data"],
+                    $rule["errorMessage"]);
             }
         }
 
