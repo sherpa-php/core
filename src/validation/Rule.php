@@ -14,7 +14,8 @@ use Sherpa\Core\validation\enums\Response;
 interface Rule
 {
     /**
-     * Used by Validator for verifying to get state.
+     * Used by Validator for verifying
+     * and getting response state.
      *
      * @param Request $request
      * @param mixed ...$values
