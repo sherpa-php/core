@@ -44,7 +44,7 @@ class Rule
     {
         $request = Request::current() ?? new Request();
 
-        $rule = new self();
+        $rule = new static();
 
         $response = $rule
             ->handle(
