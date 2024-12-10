@@ -98,4 +98,16 @@ class Sherpa
     {
         return static::$rules[$name] ?? null;
     }
+
+    /**
+     * @param string|null $key
+     * @return mixed If $key is not provided, all session variables;
+     *               else session variable value using $key
+     */
+    public static function session(?string $key = null): mixed
+    {
+        return $key !== null
+            ? $_SESSION[$key] ?? null
+            : $_SESSION;
+    }
 }
