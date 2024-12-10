@@ -29,6 +29,8 @@ class CSRFMiddleware implements Middleware
             abort(409);
         }
 
+        CSRF::regenerate();
+
         return MiddlewareResponse::CONTINUE;
     }
 }
