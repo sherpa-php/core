@@ -25,7 +25,7 @@ class CSRFMiddleware implements Middleware
     public function run(Request $request): MiddlewareResponse
     {
         if (in_array($request->httpMethod, self::CONCERNED_HTTP_METHODS)
-            && CSRF::validate($request))
+            && !CSRF::validate($request))
         {
             abort(409);
         }
