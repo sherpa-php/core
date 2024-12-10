@@ -13,6 +13,27 @@ use Sherpa\Core\router\Request;
  */
 class CSRF
 {
+    /** CSRF token duration in milliseconds. */
+    private const int DURATION = 3600;
+
+    public private(set) string $token;
+
+    private int $endAt;
+
+    public function __construct()
+    {
+        $this->token = self::generate();
+        $this->endAt = time() + self::DURATION;
+    }
+
+    /**
+     * @return bool If CSRF token is expired
+     */
+    public function isExpired(): bool
+    {
+        return $this->endAt < time();
+    }
+
     /**
      * @return string|null Current CSRF token if exists
      */
@@ -22,16 +43,25 @@ class CSRF
     }
 
     /**
-     * Replace current CSRF token by a new one.
+     * Generates a new CSRF token.
      *
-     * @return string New CSRF token
+     * @return string CSRF token
      * @throws RandomException
      */
-    public static function regenerate(): string
+    private static function generate(): string
     {
-        $csrf = bin2hex(random_bytes(32));
+        return bin2hex(random_bytes(32));
+    }
 
-        return $_SESSION["CSRF_TOKEN"] = $csrf;
+    /**
+     * Generates a new CSRF object
+     * using a new token and ending time.
+     *
+     * @return CSRF
+     */
+    public static function regenerate(): self
+    {
+        return $_SESSION["CSRF_TOKEN"] = new self();
     }
 
     /**
@@ -43,7 +73,11 @@ class CSRF
      */
     public static function validate(Request $request): bool
     {
+        $csrf = self::get();
+
         return isset($request->sherpaData["sherpaf__csrf"])
-            && self::get() === $request->sherpaData["sherpaf__csrf"];
+            && $csrf !== null
+            && $csrf->token === $request->sherpaData["sherpaf__csrf"]
+            && !$csrf->isExpired();
     }
 }
