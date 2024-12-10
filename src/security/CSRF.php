@@ -45,6 +45,6 @@ class CSRF
      */
     public static function validate(Request $request): bool
     {
-        return self::get() === $request->sherpaData["sherpaf__csrf"]);
+        return self::get() === $request->sherpaData["sherpaf__csrf"];
     }
 }
