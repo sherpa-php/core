@@ -23,7 +23,6 @@ class SherpaException extends \Exception
      *      Database Exceptions:    12XX
      *      Validator Exceptions:   13XX
      *      Security Exceptions:    14XX
-     *        - CSRF Exceptions:        > 140X
      *
      */
 

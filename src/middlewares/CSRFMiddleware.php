@@ -2,7 +2,6 @@
 
 namespace Sherpa\Core\middlewares;
 
-use Sherpa\Core\exceptions\csrf\IncorrectCSRFTokenException;
 use Sherpa\Core\router\http\HttpMethod;
 use Sherpa\Core\router\Request;
 use Sherpa\Core\security\CSRF;
