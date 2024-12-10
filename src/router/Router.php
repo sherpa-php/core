@@ -5,6 +5,7 @@ namespace Sherpa\Core\router;
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\exceptions\middlewares\NotDeclaredMiddlewareException;
 use Sherpa\Core\exceptions\router\InvalidControllerMethodException;
+use Sherpa\Core\middlewares\CSRFMiddleware;
 use Sherpa\Core\middlewares\MiddlewareResponse;
 use Sherpa\Core\router\http\HttpMethod;
 
@@ -242,6 +243,11 @@ class Router
         }
 
         $middlewares = $route->middlewares();
+
+        if (Sherpa::env("CSRF_TOKEN") === "true")
+        {
+            new CSRFMiddleware()->run($request);
+        }
 
         foreach ($middlewares as $middleware)
         {
