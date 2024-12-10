@@ -36,15 +36,15 @@ class CSRF
         return $_SESSION["CSRF_TOKEN"] = $csrf;
     }
 
-    public static function validate(): void
+    /**
+     * Verifies CSRF token from request by comparing it
+     * with back-end stored one.
+     *
+     * @param Request $request
+     * @return bool Verification result
+     */
+    public static function validate(Request $request): bool
     {
-        $request = new Request();
-
-        if ($request->httpMethod === HttpMethod::POST
-            && (self::get() === null
-                || self::get() !== $request->sherpaData["sherpaf__csrf"]))
-        {
-            throw new IncorrectCSRFTokenException();
-        }
+        return self::get() === $request->sherpaData["sherpaf__csrf"]);
     }
 }
