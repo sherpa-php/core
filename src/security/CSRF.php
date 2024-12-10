@@ -3,8 +3,6 @@
 namespace Sherpa\Core\security;
 
 use Random\RandomException;
-use Sherpa\Core\exceptions\csrf\IncorrectCSRFTokenException;
-use Sherpa\Core\router\http\HttpMethod;
 use Sherpa\Core\router\Request;
 
 /**
