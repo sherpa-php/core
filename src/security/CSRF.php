@@ -3,7 +3,6 @@
 namespace Sherpa\Core\security;
 
 use Random\RandomException;
-use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\router\Request;
 
 /**
@@ -48,8 +47,8 @@ class CSRF
     public static function validate(Request $request): bool
     {
         return isset($request->sherpaData["sherpaf__csrf"])
-            && Sherpa::session("SHERPA_END_AT") !== null
-            && Sherpa::session("SHERPA_TOKEN") === $request->sherpaData["sherpaf__csrf"]
-            && Sherpa::session("SHERPA_END_AT") > time();
+            && $_SESSION["SHERPA_END_AT"] !== null
+            && $_SESSION["SHERPA_TOKEN"] === $request->sherpaData["sherpaf__csrf"]
+            && $_SESSION["SHERPA_END_AT"] > time();
     }
 }
