@@ -26,9 +26,11 @@ class Model
     }
 
 
-    public static function use(?string $table = null): ORMQuery
+    public static function use(): ORMQuery
     {
-        return new ORMQuery($table ?? Name::getDBNameFromModel(static::class));
+        return new ORMQuery(
+            self::$table
+            ?? Name::getDBNameFromModel(static::class));
     }
 
     protected function setTable(string $name): self
