@@ -3,11 +3,11 @@
 namespace Sherpa\Core\models;
 
 use Sherpa\Core\core\naming\Name;
-use Sherpa\Trail\orm\CRUD;
+use Sherpa\Trail\orm\ORMQuery;
 
 class Model
 {
-    use CRUD;
+    protected static array $public = [];
 
     /** Database Table name. */
     public protected(set) string $table;
