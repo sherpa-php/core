@@ -8,15 +8,27 @@ use Sherpa\Trail\orm\ORMQuery;
 class Model
 {
     protected static array $public = [];
+    protected static array $hidden = [];
 
     /** Database Table name. */
-    public protected(set) string $table;
+    private static string $table;
 
     public function __construct()
     {
-        $this->table = Name::getDBNameFromModel(static::class);
     }
 
-    protected static array $public = [];
-    protected static array $hidden = [];
+    public static function use(?string $table = null): ORMQuery
+    {
+        return new ORMQuery($table ?? Name::getDBNameFromModel(static::class));
+    }
+
+    protected function setTable(string $name): void
+    {
+        self::$table = $name;
+    }
+
+    public function table(): string
+    {
+        return self::$table;
+    }
 }
