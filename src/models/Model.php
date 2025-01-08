@@ -31,9 +31,11 @@ class Model
         return new ORMQuery($table ?? Name::getDBNameFromModel(static::class));
     }
 
-    protected function setTable(string $name): void
+    protected function setTable(string $name): self
     {
         self::$table = $name;
+
+        return $this;
     }
 
     public function table(): string
