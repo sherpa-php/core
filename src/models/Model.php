@@ -20,6 +20,11 @@ class Model
     {
     }
 
+    protected function belongsTo(string $related, ?string $fkColumn = null)
+    {
+        $this->makeBelongsTo($this->{$fkColumn ?? "id"}, $related);
+    }
+
 
     public static function use(?string $table = null): ORMQuery
     {
