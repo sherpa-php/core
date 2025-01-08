@@ -4,9 +4,12 @@ namespace Sherpa\Core\models;
 
 use Sherpa\Core\core\naming\Name;
 use Sherpa\Trail\orm\ORMQuery;
+use Sherpa\Trail\orm\Relationships;
 
 class Model
 {
+    use Relationships;
+
     protected static array $public = [];
     protected static array $hidden = [];
 
@@ -16,6 +19,7 @@ class Model
     public function __construct()
     {
     }
+
 
     public static function use(?string $table = null): ORMQuery
     {
