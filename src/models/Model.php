@@ -29,8 +29,10 @@ class Model
     public static function use(): ORMQuery
     {
         return new ORMQuery(
-            self::$table
-            ?? Name::getDBNameFromModel(static::class));
+            static::$table
+            ?? Name::getDBNameFromModel(static::class),
+            static::$public,
+            static::$hidden);
     }
 
     protected function setTable(string $name): self
