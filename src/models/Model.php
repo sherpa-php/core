@@ -17,8 +17,12 @@ class Model
     private static string $table;
 
 
-    public function __construct()
+    public private(set) array $data;
+
+
+    public function __construct(array $data = [])
     {
+        $this->data = $data;
     }
 
 
