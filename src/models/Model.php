@@ -54,37 +54,28 @@ class Model
     public static function use(): ORMQuery
     {
         return new ORMQuery(
-            static::$table
-            ?? Name::getDBNameFromModel(static::class),
+            static::class,
             static::$public,
             static::$hidden);
     }
 
     /**
      * Set custom table's name.
-     * <p>
-     *     This method is discouraged because not following
-     *     our conventions.
-     * </p>
-     * <p>
-     *     You should define the model's table's name globally.
-     * </p>
      *
      * @param string $name
      * @return $this
      */
-    protected function setTable(string $name): self
+    protected static function setTable(string $name): self
     {
         self::$table = $name;
-
-        return $this;
     }
 
     /**
      * @return string Model's table's name
      */
-    public function table(): string
+    public static function table(): string
     {
-        return self::$table;
+        return self::$table
+            ?? Name::getDBNameFromModel(static::class);
     }
 }
