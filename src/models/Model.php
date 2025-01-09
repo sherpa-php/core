@@ -32,9 +32,9 @@ class Model
      * @param string $related Inherited model
      * @param string|null $fkColumn (optional) foreign key column's name
      */
-    protected function belongsTo(string $related, ?string $fkColumn = null)
+    protected function belongsTo(string $related, ?string $fkColumn = null): ORMQuery
     {
-        $this->makeBelongsTo($this->{$fkColumn ?? "id"}, $related);
+        return $this->makeBelongsTo($this->{$fkColumn ?? "id"}, $related);
     }
 
 
