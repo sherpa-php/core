@@ -43,11 +43,20 @@ class Model
     {
         if ($fkColumn === null)
         {
-            $fkColumn = Name::singularize(Name::getDBNameFromModel($related))
-                . "_id";
+            $fkColumn = self::getFkColumnFromModel($related);
         }
 
         return $this->makeBelongsTo($this->data->$fkColumn, $related);
+    }
+
+    protected function hasMany(string $related, ?string $fkColumn = null): ORMRelationshipQuery
+    {
+        if ($fkColumn === null)
+        {
+            $fkColumn = self::getFkColumnFromModel($related);
+        }
+
+        return $this->makeHasMany($this->data->id, $fkColumn, $related);
     }
 
 
@@ -92,5 +101,17 @@ class Model
     {
         return self::$table
             ?? Name::getDBNameFromModel(static::class);
+    }
+
+
+    /*
+     * Relationships Utility Methods
+     */
+
+    private static function getFkColumnFromModel(
+        string $model): string
+    {
+        return Name::singularize(Name::getDBNameFromModel($model))
+            . "_id";
     }
 }
