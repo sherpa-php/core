@@ -17,4 +17,12 @@ class Name
         return $english->pluralize($modelName)[0]
             ?? $modelName->toString();
     }
+
+    public static function singularize(string $expression): string
+    {
+        $english = new EnglishInflector();
+
+        return $english->singularize($expression)[0]
+            ?? $expression;
+    }
 }
