@@ -38,9 +38,14 @@ class Model
      * @param string $fkColumn (optional) foreign key column's name
      * @return ORMQuery
      */
-    protected function belongsTo(string $related, string $fkColumn = "id"): ORMQuery
+    protected function belongsTo(string $related, ?string $fkColumn = null): ORMQuery
     {
-        var_dump($this->data);
+        if ($fkColumn === null)
+        {
+            $fkColumn = Name::singularize(Name::getDBNameFromModel($related))
+                . "_id";
+        }
+
         return $this->makeBelongsTo($this->data->$fkColumn, $related);
     }
 
