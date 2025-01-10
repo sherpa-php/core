@@ -12,7 +12,9 @@ class Name
         $english = new EnglishInflector();
 
         $modelName = explode('\\', basename($model));
-        $modelName = u(array_pop($modelName))->lower();
+        $modelName = u(array_pop($modelName))
+            ->snake()
+            ->lower();
 
         return $english->pluralize($modelName)[0]
             ?? $modelName->toString();
