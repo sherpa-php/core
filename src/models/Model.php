@@ -5,6 +5,7 @@ namespace Sherpa\Core\models;
 use Sherpa\Core\core\naming\Name;
 use Sherpa\Trail\orm\ORMQuery;
 use Sherpa\Trail\orm\Relationships;
+use stdClass;
 
 class Model
 {
@@ -17,10 +18,10 @@ class Model
     private static string $table;
 
 
-    public private(set) array $data;
+    public private(set) object $data;
 
 
-    public function __construct(array $data = [])
+    public function __construct(object $data = new stdClass())
     {
         $this->data = $data;
     }
@@ -34,11 +35,13 @@ class Model
      * Create a "Many-to-One (reversed)" relationship.
      *
      * @param string $related Inherited model
-     * @param string|null $fkColumn (optional) foreign key column's name
+     * @param string $fkColumn (optional) foreign key column's name
+     * @return ORMQuery
      */
-    protected function belongsTo(string $related, ?string $fkColumn = null): ORMQuery
+    protected function belongsTo(string $related, string $fkColumn = "id"): ORMQuery
     {
-        return $this->makeBelongsTo($this->{$fkColumn ?? "id"}, $related);
+        var_dump($this->data);
+        return $this->makeBelongsTo($this->data->$fkColumn, $related);
     }
 
 
@@ -51,7 +54,7 @@ class Model
      *
      * @return ORMQuery
      */
-    public static function use(): ORMQuery
+    public static function query(): ORMQuery
     {
         return new ORMQuery(
             static::class,
@@ -61,11 +64,17 @@ class Model
 
     /**
      * Set custom table's name.
+     * <p>
+     *     This method is discouraged because not following
+     *     our conventions.
+     * </p>
+     * <p>
+     *     You should define the model's table's name globally.
+     * </p>
      *
      * @param string $name
-     * @return $this
      */
-    protected static function setTable(string $name): self
+    protected static function setTable(string $name): void
     {
         self::$table = $name;
     }
