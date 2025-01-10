@@ -18,12 +18,12 @@ class Model
     private static string $table;
 
 
-    public private(set) object $data;
+    public object $data;
 
 
-    public function __construct(object $data = new stdClass())
+    public function __construct()
     {
-        $this->data = $data;
+        $this->data = new stdClass();
     }
 
 
