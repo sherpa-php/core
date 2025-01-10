@@ -4,6 +4,7 @@ namespace Sherpa\Core\models;
 
 use Sherpa\Core\core\naming\Name;
 use Sherpa\Trail\orm\ORMQuery;
+use Sherpa\Trail\orm\ORMRelationshipQuery;
 use Sherpa\Trail\orm\Relationships;
 use stdClass;
 
@@ -35,10 +36,10 @@ class Model
      * Create a "Many-to-One (reversed)" relationship.
      *
      * @param string $related Inherited model
-     * @param string $fkColumn (optional) foreign key column's name
-     * @return ORMQuery
+     * @param string|null $fkColumn (optional) foreign key column's name
+     * @return ORMRelationshipQuery
      */
-    protected function belongsTo(string $related, ?string $fkColumn = null): ORMQuery
+    protected function belongsTo(string $related, ?string $fkColumn = null): ORMRelationshipQuery
     {
         if ($fkColumn === null)
         {
