@@ -69,6 +69,30 @@ class Model
         return $this->makeHasOne($this->data->id, $fkColumn, $related);
     }
 
+    protected function manyToMany(
+        string $related,
+        string $pivotTable,
+        ?string $leftFkColumn = null,
+        ?string $rightFkColumn = null): ORMRelationshipQuery
+    {
+        if ($leftFkColumn === null)
+        {
+            $leftFkColumn = Name::getFkColumnFromModel(static::class);
+        }
+
+        if ($rightFkColumn === null)
+        {
+            $rightFkColumn = Name::getFkColumnFromModel($related);
+        }
+
+        return $this->makeManyToMany(
+            $this->data->id, $leftFkColumn,
+            $rightFkColumn,
+            $pivotTable,
+            $related);
+    }
+
+
     /*
      * Model's Utility Methods
      */
