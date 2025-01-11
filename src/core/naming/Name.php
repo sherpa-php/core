@@ -27,4 +27,11 @@ class Name
         return $english->singularize($expression)[0]
             ?? $expression;
     }
+
+    public static function getFkColumnFromModel(
+        string $model): string
+    {
+        return Name::singularize(Name::getDBNameFromModel($model))
+            . "_id";
+    }
 }
