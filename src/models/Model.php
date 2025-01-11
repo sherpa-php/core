@@ -59,6 +59,15 @@ class Model
         return $this->makeHasMany($this->data->id, $fkColumn, $related);
     }
 
+    protected function hasOne(string $related, ?string $fkColumn = null): ORMRelationshipQuery
+    {
+        if ($fkColumn === null)
+        {
+            $fkColumn = Name::getFkColumnFromModel($related);
+        }
+
+        return $this->makeHasOne($this->data->id, $fkColumn, $related);
+    }
 
     /*
      * Model's Utility Methods
