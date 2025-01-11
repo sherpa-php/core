@@ -14,7 +14,7 @@ class Debug
         if (!in_array("rendering/dump.css", get_included_files()))
         {
             echo "<style>";
-            include "rendering/dump.css";
+            include_once "rendering/dump.css";
             echo "</style>";
         }
 
