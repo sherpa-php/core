@@ -11,22 +11,10 @@ class Debug
      */
     public static function dump(mixed ...$args): void
     {
-        if (!in_array("rendering/dump.css", get_included_files()))
-        {
-            echo "<style>";
-            include_once "rendering/dump.css";
-            echo "</style>";
-        }
-
-        $gi = file_get_contents(__DIR__ . "/rendering/dump.html");
-
         foreach ($args as $arg)
         {
-            ob_start();
-            var_dump($arg);
-            $dump = ob_get_clean();
-
-            echo str_replace("@Sherpa(.Dumping)", $dump, $gi);
+            $engine = new DebugUI($arg);
+            $engine->render();
         }
     }
 
