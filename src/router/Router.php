@@ -3,8 +3,8 @@
 namespace Sherpa\Core\router;
 
 use Sherpa\Core\core\Sherpa;
-use Sherpa\Core\exceptions\middlewares\NotDeclaredMiddlewareException;
-use Sherpa\Core\exceptions\router\InvalidControllerMethodException;
+use Sherpa\Exceptions\exceptions\middlewares\NotDeclaredMiddlewareException;
+use Sherpa\Exceptions\exceptions\router\InvalidControllerMethodException;
 use Sherpa\Core\middlewares\CSRFMiddleware;
 use Sherpa\Core\middlewares\MiddlewareResponse;
 use Sherpa\Core\router\http\HttpMethod;
