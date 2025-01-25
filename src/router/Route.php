@@ -165,4 +165,19 @@ class Route
 
         return $this->middlewares;
     }
+
+    /**
+     * @return bool If the current instance route
+     *              is the current resolved one.
+     */
+    public function isCurrent(): bool
+    {
+        $request = new Request();
+
+        $currentRoute = Router::getRouteByPath(
+            $request->url,
+            $request->httpMethod);
+
+        return $this == $currentRoute;
+    }
 }
