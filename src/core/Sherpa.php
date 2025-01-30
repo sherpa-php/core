@@ -110,4 +110,22 @@ class Sherpa
             ? $_SESSION[$key] ?? null
             : $_SESSION;
     }
+
+    /**
+     * @return bool If development mode is enabled
+     */
+    public static function isDevMode(): bool
+    {
+        return self::env("MODE") !== null
+            && strtolower(self::env("MODE")) === "dev";
+    }
+
+    /**
+     * @return bool If production mode is enabled
+     */
+    public static function isProductionMode(): bool
+    {
+        return self::env("MODE") !== null
+            && strtolower(self::env("MODE")) === "production";
+    }
 }
