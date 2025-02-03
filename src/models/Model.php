@@ -118,6 +118,34 @@ class Model
             $related);
     }
 
+    public function __get(string $name): mixed
+    {
+        if (property_exists($this->data, $name))
+        {
+            return $this->data->$name;
+        }
+        elseif (property_exists($this->privateData, $name))
+        {
+            return $this->privateData->$name;
+        }
+
+        // TODO: sherpa exception unknown field
+
+        return null;
+    }
+
+    public function __set(string $name, $value): void
+    {
+        if (property_exists($this->data, $name))
+        {
+            $this->data->$name = $value;
+        }
+        elseif (property_exists($this->privateData, $name))
+        {
+            $this->privateData->$name = $value;
+        }
+    }
+
 
     /*
      * Model's Utility Methods
