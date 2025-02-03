@@ -37,7 +37,7 @@ class Model
     /**
      * Create a "Many-to-One (reversed)" relationship.
      *
-     * @param string $related Inherited model
+     * @param string $related Parent model
      * @param string|null $fkColumn (optional) foreign key column's name
      * @return ORMRelationshipQuery
      */
@@ -51,6 +51,13 @@ class Model
         return $this->makeBelongsTo($this->data->$fkColumn, $related);
     }
 
+    /**
+     * Create a "Has-Many" relationship.
+     *
+     * @param string $related Inherited model
+     * @param string|null $fkColumn (optional) foreign key column's name
+     * @return ORMRelationshipQuery
+     */
     protected function hasMany(string $related, ?string $fkColumn = null): ORMRelationshipQuery
     {
         if ($fkColumn === null)
@@ -61,6 +68,13 @@ class Model
         return $this->makeHasMany($this->data->id, $fkColumn, $related);
     }
 
+    /**
+     * Create a "Has-One" relationship.
+     *
+     * @param string $related Inherited model
+     * @param string|null $fkColumn (optional) foreign key column's name
+     * @return ORMRelationshipQuery
+     */
     protected function hasOne(string $related, ?string $fkColumn = null): ORMRelationshipQuery
     {
         if ($fkColumn === null)
@@ -71,6 +85,16 @@ class Model
         return $this->makeHasOne($this->data->id, $fkColumn, $related);
     }
 
+    /**
+     * Create a "Many-to-Many" relationship.
+     *
+     * @param string $related Inherited model
+     * @param string $pivotTable Pivot/Bridge table between
+     *                           the both related tables
+     * @param string|null $leftFkColumn (optional) left column's foreign key name
+     * @param string|null $rightFkColumn (optional) right column's foreign key name
+     * @return ORMRelationshipQuery
+     */
     protected function manyToMany(
         string $related,
         string $pivotTable,
