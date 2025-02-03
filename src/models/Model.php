@@ -20,6 +20,7 @@ class Model
 
 
     public object $data;
+    private object $privateData;
 
 
     public function __construct()
