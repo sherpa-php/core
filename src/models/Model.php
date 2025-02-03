@@ -23,9 +23,10 @@ class Model
     private object $privateData;
 
 
-    public function __construct()
+    public function __construct(array $public, array $private)
     {
-        $this->data = new stdClass();
+        $this->data = (object) $public;
+        $this->privateData = (object) $private;
     }
 
 
