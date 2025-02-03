@@ -118,6 +118,25 @@ class Model
             $related);
     }
 
+    /**
+     * @return array Model instance converted to array
+     */
+    public function toArray(): array
+    {
+        $instance = $this;
+        unset($instance->privateData);
+
+        return get_object_vars($this);
+    }
+
+    /**
+     * @return string Model instance converted to JSON (string)
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
+    }
+
 
     public function __get(string $name): mixed
     {
