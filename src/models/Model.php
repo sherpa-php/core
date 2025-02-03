@@ -123,10 +123,7 @@ class Model
      */
     public function toArray(): array
     {
-        $instance = $this;
-        unset($instance->privateData);
-
-        return get_object_vars($this);
+        return get_object_vars($this->data);
     }
 
     /**
