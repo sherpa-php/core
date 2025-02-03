@@ -123,7 +123,7 @@ class Model
      */
     public function toArray(): array
     {
-        return get_object_vars($this->data);
+        return json_decode(json_encode($this->data), true);
     }
 
     /**
