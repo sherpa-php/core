@@ -118,13 +118,16 @@ class Model
             $related);
     }
 
+
     public function __get(string $name): mixed
     {
-        if (property_exists($this->data, $name))
+        if (property_exists($this, "data")
+            && property_exists($this->data, $name))
         {
             return $this->data->$name;
         }
-        elseif (property_exists($this->privateData, $name))
+        elseif (property_exists($this, "privateData")
+                && property_exists($this->privateData, $name))
         {
             return $this->privateData->$name;
         }
@@ -136,11 +139,13 @@ class Model
 
     public function __set(string $name, $value): void
     {
-        if (property_exists($this->data, $name))
+        if (property_exists($this, "data")
+            && property_exists($this->data, $name))
         {
             $this->data->$name = $value;
         }
-        elseif (property_exists($this->privateData, $name))
+        elseif (property_exists($this, "privateData")
+                && property_exists($this->privateData, $name))
         {
             $this->privateData->$name = $value;
         }
