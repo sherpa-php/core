@@ -2,6 +2,8 @@
 
 namespace Sherpa\Core\views;
 
+use Sherpa\Core\models\Model;
+
 /**
  * Sherpa Rendering entity class.
  * <p>
@@ -38,6 +40,16 @@ class SherpaRendering
                            array $props = [],
                            string $title = ""): self
     {
+        $props = array_map(function ($prop)
+        {
+            if ($prop instanceof Model)
+            {
+                return $prop->toArray();
+            }
+
+            return $prop;
+        }, $props);
+
         extract($props);
 
         $template = $this->loadTemplate();
