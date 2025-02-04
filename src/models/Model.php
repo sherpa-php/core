@@ -144,6 +144,16 @@ class Model
     }
 
     /**
+     * Deletes the current instance's DB row
+     * using saved ID.
+     */
+    public function delete(): void
+    {
+        static::query()
+              ->delete($this->id);
+    }
+
+    /**
      * @return array Model instance converted to array
      */
     public function toArray(): array
