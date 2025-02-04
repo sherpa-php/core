@@ -280,7 +280,7 @@ class Router
      */
     public static function preparePath(string $path): string
     {
-        return trim($path, '/ \t');
+        return trim($path, '/ ');
     }
 
     /**
