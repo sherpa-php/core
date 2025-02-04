@@ -123,18 +123,15 @@ class Model
 
     public function update(): void
     {
-        $modelArray = $this->toArray();
-
         $updateArray = [
             ...json_decode(json_encode($this->data), true),
             ...json_decode(json_encode($this->privateData), true),
         ];
 
-        DB::table(self::table())
-          ->where("id", $this->id)
-          ->update($updateArray);
+        static::query()
+              ->where("id", $this->id)
+              ->update($updateArray);
     }
-
 
     /**
      * @return array Model instance converted to array
