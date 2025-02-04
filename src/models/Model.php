@@ -120,7 +120,17 @@ class Model
             $related);
     }
 
-
+    /**
+     * Updates current model instance
+     * using saved data (public and private).
+     * <p>
+     *     For update any data:
+     * </p>
+     * <ul>
+     *     <li>Update an attribute (public or private)</li>
+     *     <li>Call this method</li>
+     * </ul>
+     */
     public function update(): void
     {
         $updateArray = [
