@@ -3,6 +3,7 @@
 namespace Sherpa\Core\models;
 
 use Sherpa\Core\core\naming\Name;
+use Sherpa\Db\database\DB;
 use Sherpa\Trail\orm\ORMQuery;
 use Sherpa\Trail\orm\ORMRelationshipQuery;
 use Sherpa\Trail\orm\Relationships;
@@ -112,11 +113,28 @@ class Model
         }
 
         return $this->makeManyToMany(
-            $this->data->id, $leftFkColumn,
+            $this->data->id,
+            $leftFkColumn,
             $rightFkColumn,
             $pivotTable,
             $related);
     }
+
+
+    public function update(): void
+    {
+        $modelArray = $this->toArray();
+
+        $updateArray = [
+            ...json_decode(json_encode($this->data), true),
+            ...json_decode(json_encode($this->privateData), true),
+        ];
+
+        DB::table(self::table())
+          ->where("id", $this->id)
+          ->update($updateArray);
+    }
+
 
     /**
      * @return array Model instance converted to array
