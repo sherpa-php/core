@@ -3,6 +3,7 @@
 namespace Sherpa\Core\views;
 
 use Sherpa\Core\models\Model;
+use Sherpa\Trail\entities\Collection;
 
 /**
  * Sherpa Rendering entity class.
@@ -45,6 +46,10 @@ class SherpaRendering
             if ($prop instanceof Model)
             {
                 return $prop->toArray();
+            }
+            elseif ($prop instanceof Collection)
+            {
+                return $prop->prepare();
             }
 
             return $prop;
