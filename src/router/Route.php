@@ -126,7 +126,7 @@ class Route
      * @param string|null $name To set a name
      * @return string|$this|self
      */
-    public function name(?string $name = null): self|string
+    public function name(?string $name = null): self|string|null
     {
         if ($name !== null)
         {
