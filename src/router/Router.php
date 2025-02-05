@@ -192,12 +192,13 @@ class Router
      * @return Route|null Route object if exists
      */
     public static function getRouteByName(string $name,
-                                          HttpMethod $httpMethod): ?Route
+                                          ?HttpMethod $httpMethod = null): ?Route
     {
         foreach (self::$routes as $route)
         {
             if ($route->name() === $name
-                && $route->httpMethod() === $httpMethod)
+                && $httpMethod === null
+                ^ $route->httpMethod() === $httpMethod)
             {
                 return $route;
             }
