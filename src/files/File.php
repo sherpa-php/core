@@ -15,9 +15,7 @@ class File
     {
         if (!self::validate($file))
         {
-            // TODO: InvalidFileException
-            echo "InvalidFileException";//STUB
-            die;
+            throw new InvalidFileException();
         }
 
         $name = $file["name"];
