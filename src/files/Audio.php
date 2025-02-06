@@ -27,7 +27,7 @@ class Audio extends File
      */
     public function isWav(): bool
     {
-        return $this->mime->format === "mpeg";
+        return $this->mime->format === "wav";
     }
 
     /**
@@ -35,7 +35,7 @@ class Audio extends File
      */
     public function isOgg(): bool
     {
-        return $this->mime->format === "mpeg";
+        return $this->mime->format === "ogg";
     }
 
     /**
