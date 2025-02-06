@@ -62,6 +62,16 @@ class URI
     }
 
     /**
+     * Returns all files from current Request inputs.
+     *
+     * @return array Files array
+     */
+    public static function getFiles(): array
+    {
+        return $_FILES;
+    }
+
+    /**
      * Returns data if current HTTP method is PUT or DELETE.
      *
      * @return array Data array
