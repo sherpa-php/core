@@ -2,6 +2,8 @@
 
 namespace Sherpa\Core\files;
 
+use Sherpa\Core\files\exceptions\InvalidFileException;
+
 class File
 {
     public protected(set) string $name;
@@ -10,6 +12,22 @@ class File
     public protected(set) string $tempName;
     public protected(set) string $error;
     public protected(set) int $size;
+
+    public function __construct(
+        string $name,
+        string $fullPath,
+        MIME $mime,
+        string $tempName,
+        string $error,
+        int $size)
+    {
+        $this->name = $name;
+        $this->fullPath = $fullPath;
+        $this->mime = $mime;
+        $this->tempName = $tempName;
+        $this->error = $error;
+        $this->size = $size;
+    }
 
     public static function make(array $file): static
     {
@@ -27,17 +45,51 @@ class File
 
         $mime = MIME::make($type);
 
-        return match (FileType::from($mime))        // TODO: add data to constructors
+        return match (FileType::from($mime))
         {
-            FileType::AUDIO => new Audio(),
-            FileType::IMAGE => new Image(),
-            FileType::VIDEO => new Video(),
-            FileType::APPLICATION => new Application(),
-            FileType::TEXT => new Text(),
-            default => new File(),
+            FileType::AUDIO => new Audio(
+                $name,
+                $fullPath,
+                $mime,
+                $tempName,
+                $error,
+                $size),
+            FileType::IMAGE => new Image(
+                $name,
+                $fullPath,
+                $mime,
+                $tempName,
+                $error,
+                $size),
+            FileType::VIDEO => new Video(
+                $name,
+                $fullPath,
+                $mime,
+                $tempName,
+                $error,
+                $size),
+            FileType::APPLICATION => new Application(
+                $name,
+                $fullPath,
+                $mime,
+                $tempName,
+                $error,
+                $size),
+            FileType::TEXT => new Text(
+                $name,
+                $fullPath,
+                $mime,
+                $tempName,
+                $error,
+                $size),
+            default => new File(
+                $name,
+                $fullPath,
+                $mime,
+                $tempName,
+                $error,
+                $size),
         };
-
-        // TODO ...
     }
 
     /**
