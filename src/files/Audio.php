@@ -15,7 +15,7 @@ class Audio extends File
     }
 
     /**
-     * @return bool Is MPEG format
+     * @return bool Is MPEG (audio) format
      */
     public function isMpeg(): bool
     {
