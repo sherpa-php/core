@@ -34,6 +34,15 @@ class File
         $this->size = $size;
     }
 
+    /**
+     * @param string $format xxx/[XXX] mime part like audio/[mpeg]
+     * @return bool If current file has the given format
+     */
+    public function is(string $format): bool
+    {
+        return $this->mime->format === trim(strtolower($format));
+    }
+
 
     /**
      * Make properly a File instance
