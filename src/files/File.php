@@ -46,11 +46,11 @@ class File
             throw new FileUploadFailedException($uploadError);
         }
 
-        $name = $file["name"];
-        $fullPath = $file["full_path"];
-        $type = $file["type"];
-        $tempName = $file["tmp_name"];
-        $size = $file["size"];
+        $name = trim("{$file["name"]}");
+        $fullPath = trim("{$file["full_path"]}");
+        $type = trim("{$file["type"]}");
+        $tempName = trim("{$file["tmp_name"]}");
+        $size = trim("{$file["size"]}");
 
         $mime = MIME::make($type);
 
