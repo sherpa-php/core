@@ -28,6 +28,11 @@ class MIME
             die;
         }
 
+        $splitType = array_map(function ($part)
+        {
+            return strtolower(trim($part));
+        }, $splitType);
+
         return new MIME(...$splitType);
     }
 }
