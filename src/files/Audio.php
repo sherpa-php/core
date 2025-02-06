@@ -2,6 +2,13 @@
 
 namespace Sherpa\Core\files;
 
+/**
+ * Class representing an audio,
+ * inherited from File class.
+ * <p>
+ *     Used to deal with audio files.
+ * </p>
+ */
 class Audio extends File
 {
     /**

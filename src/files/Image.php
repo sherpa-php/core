@@ -2,6 +2,13 @@
 
 namespace Sherpa\Core\files;
 
+/**
+ * Class representing an image,
+ * inherited from File class.
+ * <p>
+ *     Used to deal with image files.
+ * </p>
+ */
 class Image extends File
 {
     /**

@@ -5,6 +5,10 @@ namespace Sherpa\Core\files;
 use Sherpa\Core\files\exceptions\FileUploadFailedException;
 use Sherpa\Core\files\exceptions\InvalidFileException;
 
+/**
+ * Class representing a file.
+ * Used to deal with video files.
+ */
 class File
 {
     public protected(set) string $name;
@@ -31,6 +35,16 @@ class File
     }
 
 
+    /**
+     * Make properly a File instance
+     * using given file data array
+     *
+     * @param array $file File data array
+     * @return static
+     * @throws FileUploadFailedException
+     * @throws InvalidFileException
+     * @throws exceptions\InvalidFileUploadErrorCodeException
+     */
     public static function make(array $file): static
     {
         if (!self::validate($file))
