@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\router;
 
+use Sherpa\Core\files\File;
 use Sherpa\Core\router\http\HttpMethod;
 use Sherpa\Core\router\utils\URI;
 use Sherpa\Core\security\Security;
@@ -20,6 +21,7 @@ class Request
     public private(set) HttpMethod $httpMethod;
     public private(set) string $url;
     private array $data;
+    private array $files;
     public private(set) array $sherpaData;
 
     public function __construct()
@@ -27,6 +29,7 @@ class Request
         $this->httpMethod = HttpMethod::from($_SERVER["REQUEST_METHOD"]);
         $this->url = URI::getSherpaPath();
         $this->data = URI::getExternalData();
+        $this->files = URI::getFiles();
         $this->sherpaData = URI::getSherpaData();
     }
 
@@ -42,6 +45,31 @@ class Request
                 ? Security::secureData($this->data[$key])
                 : null)
             : $this->data;
+    }
+
+    /**
+     * @return array Request's files array
+     */
+    public function files(): array
+    {
+        return array_map(function ($file)
+        {
+            return File::make($file);
+        }, $this->files);
+    }
+
+    /**
+     * @param string $key File field's name
+     * @return mixed File object if exists; else NULL
+     */
+    public function file(string $key): mixed
+    {
+        if (!in_array(array_keys($this->files()), $key))
+        {
+            return null;
+        }
+
+        return $this->files()[$key];
     }
 
     /**
