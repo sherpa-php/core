@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\files;
 
+use Sherpa\Core\files\exceptions\FileUploadFailedException;
 use Sherpa\Core\files\exceptions\InvalidFileException;
 
 class File
@@ -29,6 +30,7 @@ class File
         $this->size = $size;
     }
 
+
     public static function make(array $file): static
     {
         if (!self::validate($file))
@@ -36,11 +38,18 @@ class File
             throw new InvalidFileException();
         }
 
+        $error = $file["error"];
+        $uploadError = new FileUploadError($error);
+
+        if ($uploadError->failed())
+        {
+            throw new FileUploadFailedException($uploadError);
+        }
+
         $name = $file["name"];
         $fullPath = $file["full_path"];
         $type = $file["type"];
         $tempName = $file["tmp_name"];
-        $error = $file["error"];
         $size = $file["size"];
 
         $mime = MIME::make($type);
