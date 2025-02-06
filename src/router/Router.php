@@ -174,7 +174,7 @@ class Router
     {
         foreach (self::$routes as $route)
         {
-            if ($route->path() === $path
+            if ($route->path() === self::preparePath($path)
                 && $route->httpMethod() === $httpMethod)
             {
                 return $route;
