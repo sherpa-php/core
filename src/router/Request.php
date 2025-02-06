@@ -64,7 +64,7 @@ class Request
      */
     public function file(string $key): mixed
     {
-        if (!in_array(array_keys($this->files()), $key))
+        if (!in_array($key, array_keys($this->files())))
         {
             return null;
         }
