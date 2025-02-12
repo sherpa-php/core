@@ -55,6 +55,17 @@ class Sherpa
     }
 
     /**
+     * @param string $key
+     * @return bool If related environment
+     *              variable has "true" as value
+     */
+    public static function validateEnv(string $key): bool
+    {
+        return Sherpa::env($key) !== null
+            && trim(strtolower(Sherpa::env($key))) === "true";
+    }
+
+    /**
      * SECURITY WARNING: DO NOT SHARE TO CLIENT!
      *
      * @return array All database credentials
