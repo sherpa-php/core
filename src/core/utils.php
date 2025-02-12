@@ -1,12 +1,19 @@
 <?php
 
+use Sherpa\Core\core\Sherpa;
+use Sherpa\Core\debugging\Debug;
+use Sherpa\Core\files\Application;
+use Sherpa\Core\files\Audio;
+use Sherpa\Core\files\Document;
+use Sherpa\Core\files\File;
+use Sherpa\Core\files\Image;
+use Sherpa\Core\files\Text;
+use Sherpa\Core\router\Request;
+
+
 /*
  * Sherpa Framework Internal Util methods
  */
-
-use Sherpa\Core\core\Sherpa;
-use Sherpa\Core\debugging\Debug;
-use Sherpa\Core\router\Request;
 
 
 /**
@@ -97,4 +104,64 @@ function dump(mixed ...$args): void
 function dd(mixed ...$args): void
 {
     Debug::dd(...$args);
+}
+
+/**
+ * @param mixed $file
+ * @return bool Is a Document class instance
+ * @see Document
+ */
+function isDocument(mixed $file): bool
+{
+    return $file instanceof Document;
+}
+
+/**
+ * @param mixed $file
+ * @return bool Is an Application class instance
+ * @see Application
+ */
+function isApplication(mixed $file): bool
+{
+    return $file instanceof Application;
+}
+
+/**
+ * @param mixed $file
+ * @return bool Is an Audio class instance
+ * @see Audio
+ */
+function isAudio(mixed $file): bool
+{
+    return $file instanceof Audio;
+}
+
+/**
+ * @param mixed $file
+ * @return bool Is an Image class instance
+ * @see Image
+ */
+function isImage(mixed $file): bool
+{
+    return $file instanceof Image;
+}
+
+/**
+ * @param mixed $file
+ * @return bool Is a Text class instance
+ * @see Text
+ */
+function isText(mixed $file): bool
+{
+    return $file instanceof Text;
+}
+
+/**
+ * @param mixed $source
+ * @return bool Is a File (or inherited) class instance
+ * @see File
+ */
+function isFile(mixed $source): bool
+{
+    return $source instanceof File;
 }
