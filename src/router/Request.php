@@ -52,10 +52,14 @@ class Request
      */
     public function files(): array
     {
+        $filteredFiles = array_filter(
+            $this->files,
+            fn ($file) => File::validate($file));
+
         return array_map(function ($file)
         {
             return File::make($file);
-        }, $this->files);
+        }, $filteredFiles);
     }
 
     /**
