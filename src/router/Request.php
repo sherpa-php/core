@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\router;
 
+use Sherpa\Core\containment\Bag;
 use Sherpa\Core\files\File;
 use Sherpa\Core\router\http\HttpMethod;
 use Sherpa\Core\router\utils\URI;
@@ -20,17 +21,17 @@ class Request
 
     public private(set) HttpMethod $httpMethod;
     public private(set) string $url;
-    private array $data;
-    private array $files;
-    public private(set) array $sherpaData;
+    public private(set) Bag $data;
+    public private(set) Bag $files;
+    public private(set) Bag $sherpaData;
 
     public function __construct()
     {
         $this->httpMethod = HttpMethod::from($_SERVER["REQUEST_METHOD"]);
         $this->url = URI::getSherpaPath();
-        $this->data = URI::getExternalData();
-        $this->files = URI::getFiles();
-        $this->sherpaData = URI::getSherpaData();
+        $this->data = new Bag(URI::getExternalData());
+        $this->files = new Bag(URI::getFiles());
+        $this->sherpaData = new Bag(URI::getSherpaData());
     }
 
     /**
@@ -41,10 +42,10 @@ class Request
     public function data(?string $key = null): mixed
     {
         return $key !== null
-            ? ($this->has($key)
-                ? Security::secureData($this->data[$key])
+            ? ($this->data->has($key)
+                ? Security::secureData($this->data->get($key))
                 : null)
-            : $this->data;
+            : $this->data->all();
     }
 
     /**
@@ -53,7 +54,7 @@ class Request
     public function files(): array
     {
         $filteredFiles = array_filter(
-            $this->files,
+            $this->files->all(),
             fn ($file) => File::validate($file));
 
         return array_map(function ($file)
@@ -74,15 +75,6 @@ class Request
         }
 
         return $this->files()[$key];
-    }
-
-    /**
-     * @param string $key Data key
-     * @return bool If data key exists
-     */
-    public function has(string $key): bool
-    {
-        return isset($this->data[$key]);
     }
 
     /**
