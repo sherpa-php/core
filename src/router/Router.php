@@ -18,8 +18,8 @@ class Router
     private static array $middlewares = [];
 
     private static function makeRoute(HttpMethod $httpMethod,
-                                        string $path,
-                                        array|string|callable $target): Route
+                                      string $path,
+                                      array|string|callable $target): Route
     {
         if (is_callable($target))
         {
@@ -76,7 +76,7 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function post(string $path, array|string $target): Route
+    public static function post(string $path, array|string|callable $target): Route
     {
         return self::$routes[] = self::makeRoute(
             HttpMethod::POST, $path, $target);
@@ -90,7 +90,7 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function head(string $path, array|string $target): Route
+    public static function head(string $path, array|string|callable $target): Route
     {
         return self::$routes[] = self::makeRoute(
             HttpMethod::HEAD, $path, $target);
@@ -104,7 +104,7 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function put(string $path, array|string $target): Route
+    public static function put(string $path, array|string|callable $target): Route
     {
         return self::$routes[] = self::makeRoute(
             HttpMethod::PUT, $path, $target);
@@ -118,7 +118,7 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function delete(string $path, array|string $target): Route
+    public static function delete(string $path, array|string|callable $target): Route
     {
         return self::$routes[] = self::makeRoute(
             HttpMethod::DELETE, $path, $target);
