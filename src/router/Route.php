@@ -16,8 +16,8 @@ class Route
     private HttpMethod $httpMethod;
     private string $path;
     private $callback;
-    private string $controllerClass;
-    private string $controllerMethod;
+    private ?string $controllerClass;
+    private ?string $controllerMethod;
     private ?string $name;
     private array $middlewares;
 
