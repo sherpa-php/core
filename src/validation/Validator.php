@@ -47,9 +47,30 @@ class Validator
         return $this->errors;
     }
 
+    /**
+     * @param string $input
+     * @return string|null
+     */
     public function error(string $input): ?string
     {
         return $this->errors->get($input);
+    }
+
+    /**
+     * @return bool Has validation failed (has errors)
+     */
+    public function failed(): bool
+    {
+        return $this->errors->isNotEmpty();
+    }
+
+    /**
+     * @return bool Has validation not failed
+     *              (successful)
+     */
+    public function success(): bool
+    {
+        return !$this->failed();
     }
 
     /**
