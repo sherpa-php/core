@@ -47,9 +47,9 @@ class CSRF
      */
     public static function validate(Request $request): bool
     {
-        return isset($request->sherpaData["sherpaf__csrf"])
+        return $request->sherpaData->has("sherpaf__csrf")
             && Sherpa::session("CSRF_END_AT") !== null
-            && Sherpa::session("CSRF_TOKEN") === $request->sherpaData["sherpaf__csrf"]
+            && Sherpa::session("CSRF_TOKEN") === $request->sherpaData->get("sherpaf__csrf")
             && Sherpa::session("CSRF_END_AT") > time();
     }
 }
