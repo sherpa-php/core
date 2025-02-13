@@ -15,6 +15,7 @@ class Route
 {
     private HttpMethod $httpMethod;
     private string $path;
+    private $callback;
     private string $controllerClass;
     private string $controllerMethod;
     private ?string $name;
@@ -23,13 +24,15 @@ class Route
     public function __construct(
         HttpMethod $httpMethod,
         string $path,
-        string $controllerClass,
-        string $controllerMethod,
+        ?callable $callback = null,
+        ?string $controllerClass = null,
+        ?string $controllerMethod = null,
         ?string $name = null,
         array $middlewares = [])
     {
         $this->httpMethod = $httpMethod;
         $this->path = $path;
+        $this->callback = $callback;
         $this->controllerClass = $controllerClass;
         $this->controllerMethod = $controllerMethod;
         $this->name = $name;
@@ -179,5 +182,23 @@ class Route
             $request->httpMethod);
 
         return $this == $currentRoute;
+    }
+
+    /**
+     * @return bool If route uses a callback
+     *              instead of controller + method
+     */
+    public function hasCallback(): bool
+    {
+        return $this->callback !== null
+            && is_callable($this->callback);
+    }
+
+    /**
+     * Run route's callback.
+     */
+    public function runCallback(): void
+    {
+        ($this->callback)();
     }
 }

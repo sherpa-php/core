@@ -4,7 +4,7 @@ namespace Sherpa\Core\router;
 
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\middlewares\exceptions\NotDeclaredMiddlewareException;
-use Sherpa\Exceptions\exceptions\router\InvalidControllerMethodException;
+use Sherpa\Core\router\exceptions\InvalidControllerMethodException;
 use Sherpa\Core\middlewares\CSRFMiddleware;
 use Sherpa\Core\middlewares\MiddlewareResponse;
 use Sherpa\Core\router\http\HttpMethod;
@@ -17,6 +17,38 @@ class Router
     private static array $routes = [];
     private static array $middlewares = [];
 
+    private static function makeRoute(HttpMethod $httpMethod,
+                                        string $path,
+                                        array|string|callable $target): Route
+    {
+        if (is_callable($target))
+        {
+            $route = new Route(
+                $httpMethod,
+                self::preparePath($path),
+                $target);
+        }
+        else
+        {
+            $controllerClass = is_array($target) && isset($target[0])
+                ? $target[0]
+                : $target;
+
+            $controllerMethod = is_array($target) && isset($target[1])
+                ? $target[1]
+                : Sherpa::DEFAULT_CONTROLLER_METHOD;
+
+            $route = new Route(
+                $httpMethod,
+                self::preparePath($path),
+                null,
+                $controllerClass,
+                $controllerMethod);
+        }
+
+        return $route;
+    }
+
     /**
      * Creates a GET route.
      * <p>
@@ -24,28 +56,14 @@ class Router
      * </p>
      *
      * @param string $path Route's path
-     * @param array|string $controller If it is a string: controller's class name
+     * @param array|string $target If it is a string: controller's class name
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function get(string $path, array|string $controller): Route
+    public static function get(string $path, array|string|callable $target): Route
     {
-        $controllerClass = is_array($controller) && isset($controller[0])
-            ? $controller[0]
-            : $controller;
-
-        $controllerMethod = is_array($controller) && isset($controller[1])
-            ? $controller[1]
-            : Sherpa::DEFAULT_CONTROLLER_METHOD;
-
-        $route = new Route(
-            HttpMethod::GET,
-            self::preparePath($path),
-            $controllerClass,
-            $controllerMethod,
-            null);
-
-        self::head($path, $controller);
+        $route = self::makeRoute(HttpMethod::GET, $path, $target);
+        self::head($path, $target);
 
         return self::$routes[] = $route;
     }
@@ -58,24 +76,10 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function post(string $path, array|string $controller): Route
+    public static function post(string $path, array|string $target): Route
     {
-        $controllerClass = is_array($controller) && isset($controller[0])
-            ? $controller[0]
-            : $controller;
-
-        $controllerMethod = is_array($controller) && isset($controller[1])
-            ? $controller[1]
-            : Sherpa::DEFAULT_CONTROLLER_METHOD;
-
-        $route = new Route(
-            HttpMethod::POST,
-            self::preparePath($path),
-            $controllerClass,
-            $controllerMethod,
-            null);
-
-        return self::$routes[] = $route;
+        return self::$routes[] = self::makeRoute(
+            HttpMethod::POST, $path, $target);
     }
 
     /**
@@ -86,24 +90,10 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function head(string $path, array|string $controller): Route
+    public static function head(string $path, array|string $target): Route
     {
-        $controllerClass = is_array($controller) && isset($controller[0])
-            ? $controller[0]
-            : $controller;
-
-        $controllerMethod = is_array($controller) && isset($controller[1])
-            ? $controller[1]
-            : Sherpa::DEFAULT_CONTROLLER_METHOD;
-
-        $route = new Route(
-            HttpMethod::HEAD,
-            self::preparePath($path),
-            $controllerClass,
-            $controllerMethod,
-            null);
-
-        return self::$routes[] = $route;
+        return self::$routes[] = self::makeRoute(
+            HttpMethod::HEAD, $path, $target);
     }
 
     /**
@@ -114,24 +104,10 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function put(string $path, array|string $controller): Route
+    public static function put(string $path, array|string $target): Route
     {
-        $controllerClass = is_array($controller) && isset($controller[0])
-            ? $controller[0]
-            : $controller;
-
-        $controllerMethod = is_array($controller) && isset($controller[1])
-            ? $controller[1]
-            : Sherpa::DEFAULT_CONTROLLER_METHOD;
-
-        $route = new Route(
-            HttpMethod::PUT,
-            self::preparePath($path),
-            $controllerClass,
-            $controllerMethod,
-            null);
-
-        return self::$routes[] = $route;
+        return self::$routes[] = self::makeRoute(
+            HttpMethod::PUT, $path, $target);
     }
 
     /**
@@ -142,24 +118,10 @@ class Router
      *                                 if it is an array: controller's class name, controller's method
      * @return Route
      */
-    public static function delete(string $path, array|string $controller): Route
+    public static function delete(string $path, array|string $target): Route
     {
-        $controllerClass = is_array($controller) && isset($controller[0])
-            ? $controller[0]
-            : $controller;
-
-        $controllerMethod = is_array($controller) && isset($controller[1])
-            ? $controller[1]
-            : Sherpa::DEFAULT_CONTROLLER_METHOD;
-
-        $route = new Route(
-            HttpMethod::DELETE,
-            self::preparePath($path),
-            $controllerClass,
-            $controllerMethod,
-            null);
-
-        return self::$routes[] = $route;
+        return self::$routes[] = self::makeRoute(
+            HttpMethod::DELETE, $path, $target);
     }
 
     /**
@@ -235,41 +197,73 @@ class Router
             abort(404);
         }
 
-        $controller = $route->controller();
-        $method = $route->method();
-
-        if (!method_exists($controller, $method))
+        if ($route->hasCallback())
         {
-            throw new InvalidControllerMethodException($controller, $method);
-        }
+            $middlewares = $route->middlewares();
 
-        $middlewares = $route->middlewares();
-
-        if (Sherpa::env("CSRF_TOKEN") === "true")
-        {
-            new CSRFMiddleware()->run($request);
-        }
-
-        foreach ($middlewares as $middleware)
-        {
-            $middlewareClassName = self::middlewares()[$middleware];
-
-            if (!isset($middlewareClassName))
+            if (Sherpa::env("CSRF_TOKEN") === "true")
             {
-                throw new NotDeclaredMiddlewareException($middleware);
+                new CSRFMiddleware()->run($request);
             }
 
-            $middlewareResponse = new $middlewareClassName()
-                ->run($request);
-
-            if ($middlewareResponse === MiddlewareResponse::ABORT)
+            foreach ($middlewares as $middleware)
             {
-                abort(404);
-            }
-        }
+                $middlewareClassName = self::middlewares()[$middleware];
 
-        $instance = new $controller();
-        call_user_func([$instance, $method], $request);
+                if (!isset($middlewareClassName))
+                {
+                    throw new NotDeclaredMiddlewareException($middleware);
+                }
+
+                $middlewareResponse = new $middlewareClassName()
+                    ->run($request);
+
+                if ($middlewareResponse === MiddlewareResponse::ABORT)
+                {
+                    abort(404);
+                }
+            }
+
+            $route->runCallback();
+        }
+        else
+        {
+            $controller = $route->controller();
+            $method = $route->method();
+
+            if (!method_exists($controller, $method))
+            {
+                throw new InvalidControllerMethodException($controller, $method);
+            }
+
+            $middlewares = $route->middlewares();
+
+            if (Sherpa::env("CSRF_TOKEN") === "true")
+            {
+                new CSRFMiddleware()->run($request);
+            }
+
+            foreach ($middlewares as $middleware)
+            {
+                $middlewareClassName = self::middlewares()[$middleware];
+
+                if (!isset($middlewareClassName))
+                {
+                    throw new NotDeclaredMiddlewareException($middleware);
+                }
+
+                $middlewareResponse = new $middlewareClassName()
+                    ->run($request);
+
+                if ($middlewareResponse === MiddlewareResponse::ABORT)
+                {
+                    abort(404);
+                }
+            }
+
+            $instance = new $controller();
+            call_user_func([$instance, $method], $request);
+        }
     }
 
     /**
