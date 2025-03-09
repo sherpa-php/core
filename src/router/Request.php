@@ -4,6 +4,7 @@ namespace Sherpa\Core\router;
 
 use Sherpa\Core\containment\Bag;
 use Sherpa\Core\files\File;
+use Sherpa\Core\router\http\Header;
 use Sherpa\Core\router\http\HttpMethod;
 use Sherpa\Core\router\utils\URI;
 use Sherpa\Core\security\Security;
@@ -21,6 +22,7 @@ class Request
 
     public private(set) HttpMethod $httpMethod;
     public private(set) string $url;
+    public private(set) Header $header;
     public private(set) Bag $data;
     public private(set) Bag $files;
     public private(set) Bag $sherpaData;
@@ -29,15 +31,33 @@ class Request
     {
         $this->httpMethod = HttpMethod::from($_SERVER["REQUEST_METHOD"]);
         $this->url = URI::getSherpaPath();
+        $this->header = new Header(URI::getHeaderData());
         $this->data = new Bag(URI::getExternalData());
         $this->files = new Bag(URI::getFiles());
         $this->sherpaData = new Bag(URI::getSherpaData());
     }
 
     /**
+     * @param string|null $key Header attribute's key
+     * @return mixed All header's attributes if no one key is given
+     *               else, header's attribute from a given key
+     */
+    public function header(?string $key = null): mixed
+    {
+        return $key !== null
+            ? ($this->header->has($key)
+                ? Security::secureData($this->header->get($key))
+                : null)
+            : array_map(function ($header)
+            {
+                return Security::secureData($header);
+            }, $this->header->all());
+    }
+
+    /**
      * @param string|null $key Data key
      * @return mixed All data if no one key is given
-     *               else, data value from given key
+     *               else, data value from a given key
      */
     public function data(?string $key = null): mixed
     {
@@ -45,7 +65,10 @@ class Request
             ? ($this->data->has($key)
                 ? Security::secureData($this->data->get($key))
                 : null)
-            : $this->data->all();
+            : array_map(function ($data)
+            {
+                return Security::secureData($data);
+            }, $this->data->all());
     }
 
     /**

@@ -14,6 +14,17 @@ use Sherpa\Core\core\Sherpa;
 class URI
 {
     /**
+     * Returns current request's headers attributes.
+     *
+     * @return array|false Current request's headers;
+     *                     FALSE if it fails
+     */
+    public static function getHeaderData(): array|false
+    {
+        return getallheaders();
+    }
+
+    /**
      * Returns external data from current Request inputs.
      * <p>
      *     They must not contain "sherpaf__" at key beginning.
