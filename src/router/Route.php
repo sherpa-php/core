@@ -197,8 +197,8 @@ class Route
     /**
      * Run route's callback.
      */
-    public function runCallback(): void
+    public function runCallback(Request $request): void
     {
-        ($this->callback)();
+        ($this->callback)($request);
     }
 }

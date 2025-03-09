@@ -224,7 +224,7 @@ class Router
                 }
             }
 
-            $route->runCallback();
+            $route->runCallback($request);
         }
         else
         {
