@@ -2,6 +2,8 @@
 
 namespace Sherpa\Core\containment;
 
+use Sherpa\Core\security\Security;
+
 /**
  * Bag main class.
  * <p>
@@ -114,5 +116,16 @@ class Bag
     public function isNotEmpty(): bool
     {
         return !$this->isEmpty();
+    }
+
+    /**
+     * @return $this Sanitized version of the current bag
+     */
+    public function sanitize(): static
+    {
+        return new Bag(array_map(function ($element)
+        {
+            return Security::secureData($element);
+        }, $this->all()));
     }
 }
