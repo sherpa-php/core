@@ -128,4 +128,12 @@ class Bag
             return Security::secureData($element);
         }, $this->all()));
     }
+
+    /**
+     * @return int Bag's elements count
+     */
+    public function count(): int
+    {
+        return count($this->content);
+    }
 }
