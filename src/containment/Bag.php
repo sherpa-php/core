@@ -41,6 +41,18 @@ class Bag
     }
 
     /**
+     * Get bag's item by its value,
+     * using callback function.
+     *
+     * @param callable $cb Callback function
+     * @return mixed
+     */
+    public function getByElement(callable $cb): mixed
+    {
+        return array_find($this->content, $cb);
+    }
+
+    /**
      * Return if the provided key
      * is used in the bag.
      *
