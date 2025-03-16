@@ -22,7 +22,9 @@ class Route
     private ?string $controllerMethod;
     private ?string $name;
     private array $middlewares;
-    private array $parameters;
+    private array $linkedRoutes;
+    public private(set) array $parameters;
+    public private(set) array $parametersFlags;
 
     public function __construct(
         HttpMethod $httpMethod,
@@ -32,6 +34,7 @@ class Route
         ?string $controllerMethod = null,
         ?string $name = null,
         array $middlewares = [],
+        array $linkedRoutes = [],
         array $parameters = [])
     {
         $this->httpMethod = $httpMethod;
@@ -41,7 +44,14 @@ class Route
         $this->controllerMethod = $controllerMethod;
         $this->name = $name;
         $this->middlewares = $middlewares;
+        $this->linkedRoutes = $linkedRoutes;
         $this->parameters = $parameters;
+        $this->parametersFlags = [];
+
+        foreach ($this->parameters as $parameter)
+        {
+            $this->parametersFlags[$parameter] = [];
+        }
     }
 
     /**
@@ -205,5 +215,27 @@ class Route
     public function runCallback(mixed ...$params): void
     {
         ($this->callback)(...$params);
+    }
+
+    public function addRouteLink(Route $route): static
+    {
+        $this->linkedRoutes[] = $route;
+
+        return $this;
+    }
+
+    public function paramFlags(string $paramKey, array $flags, bool $recursive = true): static
+    {
+        $this->parametersFlags[$paramKey] = $flags;
+
+        if ($recursive)
+        {
+            foreach ($this->linkedRoutes as $route)
+            {
+                $route->paramFlags($paramKey, $flags);
+            }
+        }
+
+        return $this;
     }
 }

@@ -22,7 +22,7 @@ class Router
                                       array|string|callable $target): Route
     {
         preg_match_all(Route::ROUTE_PARAMETER_REGEX, $path, $parameters);
-        $parameters = array_splice($parameters, 1);
+        $parameters = $parameters[1];
 
         $path = preg_replace(Route::ROUTE_PARAMETER_REGEX, "(.*)", $path);
 
@@ -32,7 +32,7 @@ class Router
                 $httpMethod,
                 self::preparePath($path),
                 $target,
-                parameters: $parameters[1]);
+                parameters: $parameters);
         }
         else
         {
@@ -50,7 +50,7 @@ class Router
                 null,
                 $controllerClass,
                 $controllerMethod,
-                parameters: $parameters[1]);
+                parameters: $parameters);
         }
 
         return $route;
@@ -70,7 +70,7 @@ class Router
     public static function get(string $path, array|string|callable $target): Route
     {
         $route = self::makeRoute(HttpMethod::GET, $path, $target);
-        self::head($path, $target);
+        $route->addRouteLink(self::head($path, $target));
 
         return self::$routes[] = $route;
     }
@@ -212,6 +212,25 @@ class Router
             self::preparePath($url),
             $match);
 
+        $preparedParameters = array_map(
+            fn ($param) => $param[0],
+            array_splice($match, 1));
+
+        for ($paramIndex = 0; $paramIndex < count($route->parameters); $paramIndex++)
+        {
+            $flags = $route->parametersFlags[$route->parameters[$paramIndex]];
+
+            foreach ($flags as $flag)
+            {
+                $preparedParameters[$paramIndex] = match ($flag)
+                {
+                    "upper" => strtoupper($preparedParameters[$paramIndex]),
+                    "lower" => strtolower($preparedParameters[$paramIndex]),
+                    "cap" => ucwords($preparedParameters[$paramIndex]),
+                };
+            }
+        }
+
         if ($route->hasCallback())
         {
             $middlewares = $route->middlewares();
@@ -239,7 +258,7 @@ class Router
                 }
             }
 
-            $route->runCallback($request, ...array_splice($match, 1));
+            $route->runCallback($request, ...$preparedParameters);
         }
         else
         {
@@ -277,10 +296,6 @@ class Router
             }
 
             $instance = new $controller();
-
-            $preparedParameters = array_map(
-                fn ($param) => $param[0],
-                array_splice($match, 1));
 
             call_user_func([$instance, $method], $request, ...$preparedParameters);
         }
