@@ -9,11 +9,4 @@ use Sherpa\Core\router\Request;
  */
 abstract class Controller
 {
-    /**
-     * Default controller method
-     *
-     * @param Request $request
-     */
-    public function __default(Request $request)
-    { }
 }
