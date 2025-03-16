@@ -13,6 +13,8 @@ use Sherpa\Core\router\http\HttpMethod;
  */
 class Route
 {
+    public const string ROUTE_PARAMETER_REGEX = "/:(([a-zA-Z])([a-zA-Z0-9]*))/";
+
     private HttpMethod $httpMethod;
     private string $path;
     private $callback;
@@ -20,6 +22,7 @@ class Route
     private ?string $controllerMethod;
     private ?string $name;
     private array $middlewares;
+    private array $parameters;
 
     public function __construct(
         HttpMethod $httpMethod,
@@ -28,7 +31,8 @@ class Route
         ?string $controllerClass = null,
         ?string $controllerMethod = null,
         ?string $name = null,
-        array $middlewares = [])
+        array $middlewares = [],
+        array $parameters = [])
     {
         $this->httpMethod = $httpMethod;
         $this->path = $path;
@@ -37,6 +41,7 @@ class Route
         $this->controllerMethod = $controllerMethod;
         $this->name = $name;
         $this->middlewares = $middlewares;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -197,8 +202,8 @@ class Route
     /**
      * Run route's callback.
      */
-    public function runCallback(Request $request): void
+    public function runCallback(mixed ...$params): void
     {
-        ($this->callback)($request);
+        ($this->callback)(...$params);
     }
 }

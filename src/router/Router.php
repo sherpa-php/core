@@ -21,12 +21,18 @@ class Router
                                       string $path,
                                       array|string|callable $target): Route
     {
+        preg_match_all(Route::ROUTE_PARAMETER_REGEX, $path, $parameters);
+        $parameters = array_splice($parameters, 1);
+
+        $path = preg_replace(Route::ROUTE_PARAMETER_REGEX, "(.*)", $path);
+
         if (is_callable($target))
         {
             $route = new Route(
                 $httpMethod,
                 self::preparePath($path),
-                $target);
+                $target,
+                parameters: $parameters[1]);
         }
         else
         {
@@ -43,7 +49,8 @@ class Router
                 self::preparePath($path),
                 null,
                 $controllerClass,
-                $controllerMethod);
+                $controllerMethod,
+                parameters: $parameters[1]);
         }
 
         return $route;
@@ -127,23 +134,24 @@ class Router
     /**
      * Retrieves route by its path and HTTP method.
      *
-     * @param string $path
+     * @param string $path Path RegEx
      * @param HttpMethod $httpMethod
      * @return Route|null Route object if exists
      */
     public static function getRouteByPath(string $path,
                                           HttpMethod $httpMethod): ?Route
     {
-        foreach (self::$routes as $route)
+        $routeObject = array_find(Router::routes(), function ($r) use ($path, $httpMethod)
         {
-            if ($route->path() === self::preparePath($path)
-                && $route->httpMethod() === $httpMethod)
-            {
-                return $route;
-            }
-        }
+            return preg_match(
+                    '/'
+                    . str_replace('/', '\/', $r->path())
+                    . '/',
+                    self::preparePath($path))
+                && $r->httpMethod() === $httpMethod;
+        });
 
-        return null;
+        return $routeObject;
     }
 
     /**
@@ -197,6 +205,13 @@ class Router
             abort(404);
         }
 
+        preg_match_all(
+            '/'
+            . str_replace('/', '\/', $route->path())
+            . '/',
+            self::preparePath($url),
+            $match);
+
         if ($route->hasCallback())
         {
             $middlewares = $route->middlewares();
@@ -224,7 +239,7 @@ class Router
                 }
             }
 
-            $route->runCallback($request);
+            $route->runCallback($request, ...array_splice($match, 1));
         }
         else
         {
@@ -262,7 +277,12 @@ class Router
             }
 
             $instance = new $controller();
-            call_user_func([$instance, $method], $request);
+
+            $preparedParameters = array_map(
+                fn ($param) => $param[0],
+                array_splice($match, 1));
+
+            call_user_func([$instance, $method], $request, ...$preparedParameters);
         }
     }
 
