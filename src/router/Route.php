@@ -217,6 +217,16 @@ class Route
         ($this->callback)(...$params);
     }
 
+    /**
+     * Link a route to the current one.
+     * <p>
+     *     A linked route can obtain same
+     *     properties than their parents.
+     * </p>
+     *
+     * @param Route $route Route to link
+     * @return $this
+     */
     public function addRouteLink(Route $route): static
     {
         $this->linkedRoutes[] = $route;
@@ -224,9 +234,21 @@ class Route
         return $this;
     }
 
-    public function paramFlags(string $paramKey, array $flags, bool $recursive = true): static
+    /**
+     * Add a flag to a route's parameter.
+     * <p>
+     *     A flag permits to apply processes
+     *     to route's parameters like capitalize, etc.
+     * </p>
+     *
+     * @param string $paramKey
+     * @param array|string $flags
+     * @param bool $recursive Apply these flags to the linked routes
+     * @return $this
+     */
+    public function paramFlags(string $paramKey, array|string $flags, bool $recursive = true): static
     {
-        $this->parametersFlags[$paramKey] = $flags;
+        $this->parametersFlags[$paramKey] = is_array($flags) ? $flags : [$flags];
 
         if ($recursive)
         {
