@@ -15,6 +15,10 @@ class Route
 {
     public const string ROUTE_PARAMETER_REGEX = "/:(([a-zA-Z])([a-zA-Z0-9]*))/";
 
+    private const string CAPITALIZE_FLAG = "cap";
+    private const string LOWERCASE_FLAG = "lower";
+    private const string UPPERCASE_FLAG = "upper";
+
     private HttpMethod $httpMethod;
     private string $path;
     private $callback;
@@ -257,6 +261,51 @@ class Route
                 $route->paramFlags($paramKey, $flags);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Add capitalize flag to provided route's parameter.
+     *
+     * @param string $paramKey
+     * @param bool $recursive Apply these flags to the linked routes
+     * @return $this
+     * @see self::CAPITALIZE_FLAG
+     */
+    public function capitalizeParam(string $paramKey, bool $recursive = true): static
+    {
+        $this->paramFlags($paramKey, self::CAPITALIZE_FLAG, $recursive);
+
+        return $this;
+    }
+
+    /**
+     * Add lowercase flag to provided route's parameter.
+     *
+     * @param string $paramKey
+     * @param bool $recursive Apply these flags to the linked routes
+     * @return $this
+     * @see self::LOWERCASE_FLAG
+     */
+    public function lowerParam(string $paramKey, bool $recursive = true): static
+    {
+        $this->paramFlags($paramKey, self::LOWERCASE_FLAG, $recursive);
+
+        return $this;
+    }
+
+    /**
+     * Add uppercase flag to provided route's parameter.
+     *
+     * @param string $paramKey
+     * @param bool $recursive Apply these flags to the linked routes
+     * @return $this
+     * @see self::UPPERCASE_FLAG
+     */
+    public function upperParam(string $paramKey, bool $recursive = true): static
+    {
+        $this->paramFlags($paramKey, self::UPPERCASE_FLAG, $recursive);
 
         return $this;
     }
