@@ -16,7 +16,7 @@ class Model
     protected static array $public = [];
     protected static array $hidden = [];
 
-    public static string $table;
+    public static ?string $table = null;
 
 
     public object $data;
