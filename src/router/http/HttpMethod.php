@@ -12,6 +12,7 @@ enum HttpMethod
     case HEAD;
     case PUT;
     case DELETE;
+    case PATCH;
 
     /**
      * Give Enum value from a given HTTP method string.
@@ -28,6 +29,7 @@ enum HttpMethod
             "HEAD" => self::HEAD,
             "PUT" => self::PUT,
             "DELETE" => self::DELETE,
+            "PATCH" => self::PATCH,
             default => throw new \InvalidArgumentException(
                 "Invalid HTTP method: $method"),
         };

@@ -156,6 +156,20 @@ class Router
     }
 
     /**
+     * Creates a PATCH route.
+     *
+     * @param string $path Route's path
+     * @param array|string $controller If it is a string: controller's class name
+     *                                 if it is an array: controller's class name, controller's method
+     * @return Route
+     */
+    public static function patch(string $path, array|string|callable $target): Route
+    {
+        return self::$routes[] = self::makeRoute(
+            HttpMethod::PATCH, $path, $target);
+    }
+
+    /**
      * Retrieves route by its path and HTTP method.
      *
      * @param string $path Path RegEx
