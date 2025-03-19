@@ -228,6 +228,39 @@ class Router
     }
 
     /**
+     * Retrieves all HTTP methods allowed for given route's path.
+     *
+     * @param string $path
+     * @return array|null An array with all allowed HTTP methods
+     *                    for the provided path;
+     *                    if the given path does no longer exist,
+     *                    NULL will be returned
+     */
+    public static function allowedMethods(string $path): ?array
+    {
+        $routesByPath = array_filter(self::routes(), function ($route) use ($path)
+        {
+            return preg_match(
+                '/'
+                . str_replace('/', '\/', $route->path())
+                . '/',
+                self::preparePath($path));
+        });
+
+        $allowedMethods = [];
+
+        foreach ($routesByPath as $route)
+        {
+            if (!in_array($route->httpMethod(), $allowedMethods))
+            {
+                $allowedMethods[] = $route->httpMethod();
+            }
+        }
+
+        return $allowedMethods;
+    }
+
+    /**
      * Resolves route using Request object.
      * <ul>
      *     <li>Retrieves route by request's path</li>

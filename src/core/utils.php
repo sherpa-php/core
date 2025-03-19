@@ -9,6 +9,7 @@ use Sherpa\Core\files\File;
 use Sherpa\Core\files\Image;
 use Sherpa\Core\files\Text;
 use Sherpa\Core\router\Request;
+use Sherpa\Core\router\Router;
 
 
 /*
@@ -164,4 +165,19 @@ function isText(mixed $file): bool
 function isFile(mixed $source): bool
 {
     return $source instanceof File;
+}
+
+/**
+ * Retrieves all HTTP methods allowed for given route's path.
+ *
+ * @param string $path
+ * @return array|null An array with all allowed HTTP methods
+ *                    for the provided path;
+ *                    if the given path does no longer exist,
+ *                    NULL will be returned
+ * @see Router::allowedMethods()
+ */
+function allowedMethods(string $path): ?array
+{
+    return Router::allowedMethods($path);
 }
