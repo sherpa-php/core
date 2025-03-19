@@ -16,8 +16,7 @@ class Model
     protected static array $public = [];
     protected static array $hidden = [];
 
-    /** Database Table name. */
-    private static string $table;
+    public static string $table;
 
 
     public object $data;
@@ -218,23 +217,6 @@ class Model
             static::class,
             static::$public,
             static::$hidden);
-    }
-
-    /**
-     * Set custom table's name.
-     * <p>
-     *     This method is discouraged because not following
-     *     our conventions.
-     * </p>
-     * <p>
-     *     You should define the model's table's name globally.
-     * </p>
-     *
-     * @param string $name
-     */
-    protected static function setTable(string $name): void
-    {
-        self::$table = $name;
     }
 
     /**
