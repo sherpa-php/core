@@ -24,10 +24,11 @@ class Router
         preg_match_all(Route::ROUTE_PARAMETER_REGEX, $path, $parameters);
         $parameters = $parameters[1];
         $preparedParameters = [];
+        $regexExpressions = [];
 
         foreach ($parameters as $parameter)
         {
-            $isNullable = substr($parameter, -1);
+            $isNullable = substr($parameter, -1) === Route::ROUTE_NULLABLE_PARAMETER;
             $paramName = $isNullable
                 ? substr($parameter, 0, -1)
                 : $parameter;
@@ -35,9 +36,19 @@ class Router
             $preparedParameters[] = new RouteParameter(
                 $paramName,
                 $isNullable);
+
+            $regexExpression = $isNullable
+                ? Route::ROUTE_NULLABLE_PARAMETER
+                : '';
+
+            $path = preg_replace(
+                Route::ROUTE_PARAMETER_REGEX,
+                "(.*$regexExpression)",
+                $path,
+                limit: 1);
         }
 
-        $path = preg_replace(Route::ROUTE_PARAMETER_REGEX, "(.*)", $path);
+        dd($path);
 
         if (is_callable($target))
         {
@@ -218,7 +229,7 @@ class Router
             abort(404);
         }
 
-        dd(str_replace('/', '\/', $route->path()));
+        dd($route->path(), str_replace('/', '\/', $route->path()));
 
         preg_match_all(
             '/'
