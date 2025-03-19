@@ -13,7 +13,7 @@ use Sherpa\Core\router\http\HttpMethod;
  */
 class Route
 {
-    public const string ROUTE_PARAMETER_REGEX = "/:(([a-zA-Z])([a-zA-Z0-9]*))/";
+    public const string ROUTE_PARAMETER_REGEX = "/:(([a-zA-Z])([a-zA-Z0-9]*)\??)/";
 
     private const string CAPITALIZE_FLAG = "cap";
     private const string LOWERCASE_FLAG = "lower";

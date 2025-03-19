@@ -23,6 +23,19 @@ class Router
     {
         preg_match_all(Route::ROUTE_PARAMETER_REGEX, $path, $parameters);
         $parameters = $parameters[1];
+        $preparedParameters = [];
+
+        foreach ($parameters as $parameter)
+        {
+            $isNullable = substr($parameter, -1);
+            $paramName = $isNullable
+                ? substr($parameter, 0, -1)
+                : $parameter;
+
+            $preparedParameters[] = new RouteParameter(
+                $paramName,
+                $isNullable);
+        }
 
         $path = preg_replace(Route::ROUTE_PARAMETER_REGEX, "(.*)", $path);
 
@@ -32,7 +45,7 @@ class Router
                 $httpMethod,
                 self::preparePath($path),
                 $target,
-                parameters: $parameters);
+                parameters: $preparedParameters);
         }
         else
         {
@@ -204,6 +217,8 @@ class Router
         {
             abort(404);
         }
+
+        dd(str_replace('/', '\/', $route->path()));
 
         preg_match_all(
             '/'
