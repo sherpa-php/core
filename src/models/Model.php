@@ -224,7 +224,7 @@ class Model
      */
     public static function table(): string
     {
-        return self::$table
+        return static::$table
             ?? Name::getDBNameFromModel(static::class);
     }
 }
