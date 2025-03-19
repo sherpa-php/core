@@ -48,8 +48,6 @@ class Router
                 limit: 1);
         }
 
-        dd($path);
-
         if (is_callable($target))
         {
             $route = new Route(
@@ -170,6 +168,20 @@ class Router
     }
 
     /**
+     * Creates an OPTIONS route.
+     *
+     * @param string $path Route's path
+     * @param array|string $controller If it is a string: controller's class name
+     *                                 if it is an array: controller's class name, controller's method
+     * @return Route
+     */
+    public static function options(string $path, array|string|callable $target): Route
+    {
+        return self::$routes[] = self::makeRoute(
+            HttpMethod::OPTIONS, $path, $target);
+    }
+
+    /**
      * Retrieves route by its path and HTTP method.
      *
      * @param string $path Path RegEx
@@ -242,8 +254,6 @@ class Router
         {
             abort(404);
         }
-
-        dd($route->path(), str_replace('/', '\/', $route->path()));
 
         preg_match_all(
             '/'
