@@ -139,4 +139,26 @@ class Sherpa
         return self::env("MODE") !== null
             && strtolower(self::env("MODE")) === "production";
     }
+
+    /**
+     * SECURITY DISCLAIMER:
+     *  DO NOT SHARE THIS KEY PUBLICLY.
+     *
+     * @return string|null App encryption key
+     */
+    public static function encryptKey(): ?string
+    {
+        return self::env("ENCRYPT_KEY");
+    }
+
+    /**
+     * SECURITY DISCLAIMER:
+     *  DO NOT SHARE THIS KEY PUBLICLY.
+     *
+     * @return string|null App encryption cipher
+     */
+    public static function encryptCipher(): ?string
+    {
+        return self::env("ENCRYPT_CIPHER");
+    }
 }
