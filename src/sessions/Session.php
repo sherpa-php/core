@@ -6,5 +6,15 @@ use Sherpa\Core\models\Model;
 
 class Session extends Model
 {
-    public static ?string $table = "sherpa_sessions";
+    protected static array $public = [
+        "token", "user_id",
+    ];
+
+
+    public static function getByUserId(int $userId): ?Session
+    {
+        return Session::query()
+                      ->where("user_id", $userId)
+                      ->first();
+    }
 }
