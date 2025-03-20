@@ -19,6 +19,7 @@
         "sherpa/db": "dev-dev",
         "sherpa/ui": "dev-dev",
         "sherpa/exceptions": "dev-dev",
-        "symfony/cache": "7.3.x-dev"
+        "symfony/cache": "7.3.x-dev",
+        "ext-openssl": "*"
     }
 }
