@@ -2,28 +2,27 @@
 
 namespace Sherpa\Core\sessions;
 
+use Sherpa\Core\core\Sherpa;
+
 class SessionsManager
 {
-    private const int KEY_BYTES = 32;
-
     /**
-     * Generate an encryption key,
-     * used for session encryption.
-     * <p>
-     *     This method is used internally,
-     *     not necessary for the developer.
-     * </p>
+     * Return stored session's key if exists;
+     * else it creates a new one and returns it.
      *
-     * @return string
+     * @return string Created or retrieved session's key
      * @throws \Random\RandomException
      */
-    public static function generateAppKey(): string
-    {
-        return bin2hex(random_bytes(self::KEY_BYTES));
-    }
-
     public static function token(): string
     {
-        dd(Session::getByUserId(1));
+        if (isset($_SESSION["session_key"]))
+        {
+            return $_SESSION["session_key"];
+        }
+        else
+        {
+            return $_SESSION["session_key"]
+                = self::generateEncryptKey();
+        }
     }
 }
