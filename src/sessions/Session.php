@@ -37,11 +37,36 @@ class Session extends Model
 
         $session = self::createOrRetrieve();
         $sessionData = json_decode($encryptor->decrypt($session->data->data));
-        $sessionData[$key] = $value;
+        $sessionData->$key = $value;
         $session->data->data = $encryptor->encrypt(json_encode($sessionData));
         $session->update();
 
         return $this;
+    }
+
+    /**
+     * Return a session's attribute by its key.
+     *
+     * @param string $key
+     * @return $this
+     * @throws UnknownEncryptionKeyException If .env does no longer
+     *                                       have an ENCRYPT_KEY variable
+     */
+    public function get(string $key): mixed
+    {
+        $encryptKey = Sherpa::encryptKey();
+
+        if ($encryptKey === null)
+        {
+            throw new UnknownEncryptionKeyException();
+        }
+
+        $encryptor = new Encryptor($encryptKey);
+
+        $session = self::createOrRetrieve();
+        $sessionData = json_decode($encryptor->decrypt($session->data->data));
+
+        return $sessionData->$key;
     }
 
 
