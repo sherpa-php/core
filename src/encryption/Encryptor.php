@@ -3,6 +3,7 @@
 namespace Sherpa\Core\encryption;
 
 use Sherpa\Core\core\Sherpa;
+use Sherpa\Core\encryption\exceptions\UnknownEncryptionKeyException;
 
 class Encryptor
 {
@@ -12,8 +13,15 @@ class Encryptor
     private $key;
     private $cipher;
 
-    public function __construct($key)
+    public function __construct()
     {
+        $key = Sherpa::encryptKey();
+
+        if ($key === null)
+        {
+            throw new UnknownEncryptionKeyException();
+        }
+
         $this->key = hash('sha256', $key, true);
         $this->cipher = Sherpa::encryptCipher()
             ?? self::DEFAULT_CIPHER;
