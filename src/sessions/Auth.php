@@ -2,6 +2,8 @@
 
 namespace Sherpa\Core\sessions;
 
+use Sherpa\Core\core\Sherpa;
+
 class Auth
 {
     public const string SESSION_KEY = "sherpaf_session_user_id";
@@ -33,5 +35,12 @@ class Auth
         {
             return null;
         }
+    }
+
+    public static function user(): ?User
+    {
+        return Auth::check()
+            ? User::query()->find(Auth::id())
+            : null;
     }
 }
