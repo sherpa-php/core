@@ -66,7 +66,9 @@ class Session extends Model
         $session = self::createOrRetrieve();
         $sessionData = json_decode($encryptor->decrypt($session->data->data));
 
-        return $sessionData->$key;
+        return property_exists($sessionData, $key)
+            ? $sessionData->$key
+            : null;
     }
 
     /**
