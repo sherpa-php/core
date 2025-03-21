@@ -17,7 +17,7 @@ class Session extends Model
         $encryptor = new Encryptor();
 
         $session = self::createOrRetrieve();
-        $sessionData = json_decode($encryptor->decrypt($session->data));
+        $sessionData = json_decode($encryptor->decrypt($session->data->data));
         $sessionData[$key] = $value;
         $session->data->data = $encryptor->encrypt(json_encode($sessionData));
         $session->update();
