@@ -25,7 +25,7 @@ final class Hash
     {
         if (Sherpa::env("BCRYPT_COST_FACTOR"))
         {
-            $options["cost"] = Sherpa::env("BCRYPT_COST");
+            $options["cost"] = Sherpa::env("BCRYPT_COST_FACTOR");
         }
 
         return password_hash($value, $algo, $options);
