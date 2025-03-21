@@ -23,7 +23,7 @@ class Redirect
     {
         $urn = Sherpa::env("SITE_URL");
 
-        header("Location: $urn$path");
+        header("Location: $urn/$path");
         die;
     }
 
@@ -44,7 +44,7 @@ class Redirect
 
         $urn = Sherpa::env("SITE_URL");
 
-        header("Location: $urn{$route->path()}");
+        header("Location: $urn/{$route->path()}");
         die;
     }
 }
