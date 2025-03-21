@@ -8,9 +8,7 @@ class Auth
 
     public static function check(): bool
     {
-        $storedUserId = array_key_exists(self::SESSION_KEY, $_SESSION)
-            ? $_SESSION[self::SESSION_KEY]
-            : null;
+        $storedUserId = Sherpa::session(self::SESSION_KEY);
 
         if ($storedUserId === null)
         {
@@ -29,7 +27,7 @@ class Auth
             return Session::query()
                           ->where("user_id", $_SESSION[self::SESSION_KEY])
                           ->first()
-                          ->id;
+                          ?->id;
         }
         else
         {
