@@ -2,13 +2,16 @@
 
 namespace Sherpa\Core\sessions;
 
+use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\encryption\Encryptor;
+use Sherpa\Core\encryption\exceptions\UnknownEncryptionKeyException;
 use Sherpa\Core\models\Model;
 
 class Session extends Model
 {
     protected static array $public = [
-        "token", "user_id",
+        "id", "token",
+        "user_id", "data",
     ];
 
 
