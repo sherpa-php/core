@@ -72,11 +72,11 @@ class Session extends Model
     /**
      * Return all session's attributes.
      *
-     * @return array Session's attributes
+     * @return object|null Session's attributes
      * @throws UnknownEncryptionKeyException If .env does no longer
      *                                       have an ENCRYPT_KEY variable
      */
-    public function all(): array
+    public function all(): ?object
     {
         $encryptKey = Sherpa::encryptKey();
 
