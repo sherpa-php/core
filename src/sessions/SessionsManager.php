@@ -3,6 +3,7 @@
 namespace Sherpa\Core\sessions;
 
 use Sherpa\Core\core\Sherpa;
+use Sherpa\Core\encryption\Encryptor;
 
 class SessionsManager
 {
@@ -15,14 +16,16 @@ class SessionsManager
      */
     public static function token(): string
     {
-        if (isset($_SESSION["session_key"]))
+        $sessionKey = Sherpa::session("session_key");
+
+        if (isset($sessionKey))
         {
-            return $_SESSION["session_key"];
+            return $sessionKey;
         }
         else
         {
             return $_SESSION["session_key"]
-                = self::generateEncryptKey();
+                = Encryptor::generateEncryptKey();
         }
     }
 }
