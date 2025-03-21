@@ -14,7 +14,14 @@ class Session extends Model
 
     public function add(string $key, mixed $value): static
     {
-        $encryptor = new Encryptor();
+        $encryptKey = Sherpa::encryptKey();
+
+        if ($encryptKey === null)
+        {
+            throw new UnknownEncryptionKeyException();
+        }
+
+        $encryptor = new Encryptor($encryptKey);
 
         $session = self::createOrRetrieve();
         $sessionData = json_decode($encryptor->decrypt($session->data->data));

@@ -13,16 +13,9 @@ class Encryptor
     private $key;
     private $cipher;
 
-    public function __construct()
+    public function __construct(string $encryptKey)
     {
-        $key = Sherpa::encryptKey();
-
-        if ($key === null)
-        {
-            throw new UnknownEncryptionKeyException();
-        }
-
-        $this->key = hash('sha256', $key, true);
+        $this->key = hash('sha256', $encryptKey, true);
         $this->cipher = Sherpa::encryptCipher()
             ?? self::DEFAULT_CIPHER;
     }
