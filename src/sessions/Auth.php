@@ -22,9 +22,6 @@ class Auth
                       ->count();
     }
 
-
-                // TODO: use symfony cache or eq.
-
     public static function id(): ?int
     {
         if (Auth::check())
