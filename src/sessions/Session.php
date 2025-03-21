@@ -69,6 +69,57 @@ class Session extends Model
         return $sessionData->$key;
     }
 
+    /**
+     * Return all session's attributes.
+     *
+     * @return array Session's attributes
+     * @throws UnknownEncryptionKeyException If .env does no longer
+     *                                       have an ENCRYPT_KEY variable
+     */
+    public function all(): array
+    {
+        $encryptKey = Sherpa::encryptKey();
+
+        if ($encryptKey === null)
+        {
+            throw new UnknownEncryptionKeyException();
+        }
+
+        $encryptor = new Encryptor($encryptKey);
+
+        $session = self::createOrRetrieve();
+
+        return json_decode($encryptor->decrypt($session->data->data));
+    }
+
+    /**
+     * Remove a session's attribute by its key.
+     *
+     * @param string $key
+     * @return $this
+     * @throws UnknownEncryptionKeyException If .env does no longer
+     *                                       have an ENCRYPT_KEY variable
+     */
+    public function remove(string $key): static
+    {
+        $encryptKey = Sherpa::encryptKey();
+
+        if ($encryptKey === null)
+        {
+            throw new UnknownEncryptionKeyException();
+        }
+
+        $encryptor = new Encryptor($encryptKey);
+
+        $session = self::createOrRetrieve();
+        $sessionData = json_decode($encryptor->decrypt($session->data->data));
+        unset($sessionData->$key);
+        $session->data->data = $encryptor->encrypt(json_encode($sessionData));
+        $session->update();
+
+        return $this;
+    }
+
 
     /**
      * Retrieve session row from sessions table
