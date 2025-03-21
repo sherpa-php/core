@@ -3,6 +3,7 @@
 namespace Sherpa\Core\router;
 
 use Sherpa\Core\core\Sherpa;
+use Sherpa\Core\router\http\HttpMethod;
 
 /**
  * Redirect utility class.
@@ -34,7 +35,7 @@ class Redirect
     public static function route(string $name): void
     {
         $request = new Request();
-        $route = Router::getRouteByName($name, $request->httpMethod);
+        $route = Router::getRouteByName($name, HttpMethod::GET);
 
         if ($route === null)
         {
