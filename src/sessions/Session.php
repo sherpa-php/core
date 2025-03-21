@@ -16,7 +16,7 @@ class Session extends Model
 
 
     /**
-     * Add a session's attribute.
+     * Set a session's attribute.
      *
      * @param string $key
      * @param mixed $value
@@ -24,7 +24,7 @@ class Session extends Model
      * @throws UnknownEncryptionKeyException If .env does no longer
      *                                       have an ENCRYPT_KEY variable
      */
-    public function add(string $key, mixed $value): static
+    public function set(string $key, mixed $value): static
     {
         $encryptKey = Sherpa::encryptKey();
 
