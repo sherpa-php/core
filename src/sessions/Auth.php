@@ -10,7 +10,7 @@ class Auth
 
     public static function check(): bool
     {
-        $storedUserId = Sherpa::session(self::SESSION_KEY);
+        $storedUserId = self::id();
 
         if ($storedUserId === null)
         {
@@ -24,17 +24,7 @@ class Auth
 
     public static function id(): ?int
     {
-        if (Auth::check())
-        {
-            return Session::query()
-                          ->where("user_id", $_SESSION[self::SESSION_KEY])
-                          ->first()
-                          ?->id;
-        }
-        else
-        {
-            return null;
-        }
+        return Sherpa::session(self::SESSION_KEY);
     }
 
     public static function user(): ?User
