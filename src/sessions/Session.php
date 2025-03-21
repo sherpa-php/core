@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\sessions;
 
+use Sherpa\Core\encryption\Encryptor;
 use Sherpa\Core\models\Model;
 
 class Session extends Model
@@ -9,6 +10,20 @@ class Session extends Model
     protected static array $public = [
         "token", "user_id",
     ];
+
+
+    public function add(string $key, mixed $value): static
+    {
+        $encryptor = new Encryptor();
+
+        $session = self::createOrRetrieve();
+        $sessionData = json_decode($encryptor->decrypt($session->data));
+        $sessionData[$key] = $value;
+        $session->data->data = $encryptor->encrypt(json_encode($sessionData));
+        $session->update();
+
+        return $this;
+    }
 
 
     /**
