@@ -2,6 +2,7 @@
 
 namespace Sherpa\Core\sessions;
 
+use Random\RandomException;
 use Sherpa\Core\core\Sherpa;
 use Sherpa\Core\encryption\Encryptor;
 use Sherpa\Core\encryption\exceptions\UnknownEncryptionKeyException;
@@ -163,7 +164,8 @@ class Session extends Model
     }
 
     /**
-     * @return bool If current session is existing
+     * @return bool If the current session is existing
+     * @throws RandomException
      */
     public static function exists(): bool
     {
