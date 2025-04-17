@@ -4,7 +4,9 @@ namespace Sherpa\Core\middlewares;
 
 use Sherpa\Core\router\Request;
 
-interface Middleware
+abstract class Middleware
 {
-    public function run(Request $request): MiddlewareResponse;
+    // TODO: implement telemetry            protected $telemetry;
+
+    public abstract function run(Request $request): MiddlewareResponse;
 }

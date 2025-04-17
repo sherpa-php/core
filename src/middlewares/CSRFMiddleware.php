@@ -13,7 +13,7 @@ use Sherpa\Core\security\CSRF;
  *     by comparing it with back-end's one.
  * </p>
  */
-class CSRFMiddleware implements Middleware
+class CSRFMiddleware extends Middleware
 {
     /** HTTP methods concerned by CSRF verification. */
     private const array CONCERNED_HTTP_METHODS = [
