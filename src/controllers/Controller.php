@@ -9,4 +9,10 @@ use Sherpa\Core\router\Request;
  */
 abstract class Controller
 {
+//    protected $telemetry;
+//
+//    public function __construct()
+//    {
+//        $this->telemetry = null; // new SherpaTelemetry();
+//    }
 }
